@@ -4,6 +4,7 @@ const tile_size: Vector2 = Vector2(16, 16) #Size of the tile that the cursor wil
 var sprite_node_pos_tween: Tween
 
 @export var selectable_units: Node2D #A variable meant to point to the Units node in the scene tree, whose children are the units currently on the map
+@export var hoverable_units: Node2D 
 var selected_character: Character = null #Character type defined in Player_Test.gd script
 var selectable_character: Character = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -39,6 +40,9 @@ func try_select_character(): #The try select character function looks at the til
 		#selected_character = null
 		#return null
 		for unit in selectable_units.get_children():
+			if unit is Character and unit.global_position == global_position:
+				return unit
+		for unit in hoverable_units.get_children():
 			if unit is Character and unit.global_position == global_position:
 				return unit
 		return null
@@ -125,14 +129,17 @@ func _physics_process(delta: float) -> void:
 					currentState = state.selecting
 				elif Input.is_action_just_pressed("InteractKey"):
 					ui_manager.openActionMenu(selected_character)
-					selected_character.destroyMovementTiles()
+					selectable_character.updateState(selectable_character.State.moved)
 					currentState = state.actionMenu
 				elif Input.is_action_just_pressed("testInput"):
 					ui_manager.displayInventory(selected_character)
 					currentState = state.invMenu
 		state.actionMenu:
 			if Input.is_action_just_pressed("backKey"):
-				print("test2")
 				ui_manager.closeActions()
 				selected_character.updateState(selected_character.State.idle)
 				currentState = state.selecting
+			if Input.is_action_just_pressed("inputUpW"):
+				ui_manager.scrollSelectorActionMenu(false)
+			if Input.is_action_just_pressed("InputDownS"):
+				ui_manager.scrollSelectorActionMenu(true)

@@ -10,7 +10,6 @@ var terrain_tiles : Dictionary = {}
 func _ready():
 	buildTerrainDictionary()
 
-
 func buildTerrainDictionary():
 	terrain_tiles.clear()
 
@@ -18,13 +17,11 @@ func buildTerrainDictionary():
 		if child is MapTile:
 			terrain_tiles[child.global_position] = child
 
-
 func getTerrainTile(tile_position : Vector2) -> MapTile:
 	if terrain_tiles.has(tile_position):
 		return terrain_tiles[tile_position]
 
 	return null
-
 
 func getMovementCost(tile_position : Vector2) -> int:
 	var tile = getTerrainTile(tile_position)
@@ -33,7 +30,6 @@ func getMovementCost(tile_position : Vector2) -> int:
 		return 1
 
 	return tile.movementReq
-
 
 func blocksMovement(tile_position : Vector2) -> bool:
 	var tile = getTerrainTile(tile_position)

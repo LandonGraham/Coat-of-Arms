@@ -13,7 +13,7 @@ var sprite_node_pos_tween: Tween
 @onready var movement_tile_layer: Node2D = $"../../MovementTileLayer"
 @onready var attack_tile_layer: Node2D = $"../../AttackTileLayer"
 
-enum State{idle, selected}
+enum State{idle, selected, moved}
 var currentState: State
 var validPoints: Array[Vector2] = []
 var validAttackPoints: Array[Vector2] = []
@@ -222,7 +222,31 @@ func getTilesAtDistance(distance : int) -> Array[Vector2]:
 	#for i in weaponRange:
 		#validx.append(i)
 		#validy.append(i)
+
+func getStandingAttackTiles():
+	validAttackPoints.clear()
+	var attackSet: Dictionary = {}
+	var minRange = handInv.getMinAttackRange()
+	var maxRange = handInv.getMaxAttackRange()
 	
+	var tiles: Array[Vector2] = []
+	
+	if minRange == maxRange:
+		tiles.append_array(getTilesAtDistance(maxRange))
+	else:
+		for distance in range(minRange, maxRange + 1):
+			tiles.append_array(getTilesAtDistance(distance))
+	
+	# Add all attack tiles without excluding movement tiles
+	for offset in tiles:
+		attackSet[offset] = true
+	
+	for point in attackSet.keys():
+		validAttackPoints.append(point)
+	
+	# Create only the attack tiles (red)
+	createMovementTiles(validAttackPoints, false)
+
 
 func createMovementTiles(validPoints: PackedVector2Array, flag: bool): #Function logic: Creates attack and movement tiles using a list of valid tiles and a flag. If the flag is true, the function uses the provided array to create movement tiles. If the flag is false, it uses the provided array to create attack tiles.
 	for item in validPoints:
@@ -238,13 +262,10 @@ func createMovementTiles(validPoints: PackedVector2Array, flag: bool): #Function
 		#print(child.name)
 
 func destroyMovementTiles():
-	if currentState == State.selected:
-		for tile in movement_tile_layer.get_children():
-			tile.destroyThisTile()
-		for attacktile in attack_tile_layer.get_children():
-			attacktile.destroyThisTile()
-	else:
-		pass
+	for tile in movement_tile_layer.get_children():
+		tile.destroyThisTile()
+	for attacktile in attack_tile_layer.get_children():
+		attacktile.destroyThisTile()
 
 func _move(dir: Vector2): #Function that controls cursor movement
 	
@@ -266,15 +287,22 @@ func updateState(newState: State):
 			if newState == State.selected:
 				currentState = State.selected
 				positionWhenSelected = position
-				print(positionWhenSelected)
 				getValidMovementPoints()
 		State.selected:
 			if newState == State.idle:
-				print("test3")
-				currentState = State.idle
-
 				var tween = create_tween()
 				tween.tween_property(self, "position", positionWhenSelected, .08)
-			
+				currentState = State.idle
+			if newState == State.moved:
+				destroyMovementTiles()
+				getStandingAttackTiles()
+				currentState = State.moved
+		State.moved:
+			if newState == State.idle:
+				print("test")
+				destroyMovementTiles()
+				var tween = create_tween()
+				tween.tween_property(self, "position", positionWhenSelected, .08)
+				currentState = State.idle
 func getPortrait():
 	return portrait

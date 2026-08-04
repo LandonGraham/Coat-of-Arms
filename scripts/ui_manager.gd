@@ -6,6 +6,10 @@ extends CanvasLayer
 @onready var enemy_units: Node2D = $"../SubViewportContainer/SubViewport/Enemy Units"
 
 var inventorySlots = []
+var actionNodes = []
+var testArray  = []
+var selectorPosition: int
+var selectorInitPosition: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -82,23 +86,57 @@ func getThreatenedUnits(unit: Character) -> Array[Node]:
 	
 func openActionMenu(unit: Character):
 	#var testArray = ["Attack", "Grapple", "Magic", "Items", "Wait"]
-	var testArray  = ["Wait"]
-	
+
+	actionNodes.clear()
+	testArray.clear()
+
+	testArray.append("Wait")
+
 	if determineAttackAction(unit):
 		testArray.push_front("Attack")
+		
+	testArray.push_front("Talk")
+	testArray.push_front("Items")
 		
 	var positionMod = 0
 	if testArray.is_empty() != true:
 		$"Selector".visible = true
-		$"Selector".position = Vector2(1500, 100)#Vector2((unit.position.x+16)*6, (unit.position.y-16)*6)
+		#$"Selector".position = Vector2(1500, 150)#Vector2((unit.position.x+16)*6, (unit.position.y-16)*6)
 		for item in testArray:
 			var actionInstance = actionScene.instantiate()
 			$"Action Display".add_child(actionInstance)
-			actionInstance.position = Vector2(($"Selector".position.x+100),(($"Selector".position.y))+positionMod)
+			actionInstance.position = Vector2(1650, 100+positionMod)
 			actionInstance.setLabel(item)
+			actionNodes.append(actionInstance)
 			positionMod+= 150
+		selectorInitPosition = (actionNodes[0].position.y)+70
+		$"Selector".position.y = selectorInitPosition
+		selectorPosition = 0
+		
 	#if unit has weapon, add attack action
 	
+func scrollSelectorActionMenu(toggle: bool):
+	var tween = create_tween()
+	if toggle == true: #a true input means the selector is moving up the array, which is visibly down the action menu
+		if selectorPosition+1 > actionNodes.size() -1:
+			selectorPosition = 0
+			tween.tween_property($"Selector", "position:y", (selectorInitPosition), 0.1)
+
+		else:
+			selectorPosition += 1
+			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+70, 0.1)
+
+	elif toggle == false: #a false input means the selector is moving down the array, which is visibly up the action menu
+		if selectorPosition-1 < 0:
+			selectorPosition = actionNodes.size()-1
+			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+70, 0.1)
+
+		else:
+			selectorPosition -= 1
+			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+70, 0.1)
+
+			
+			
 func displayPortrait(unit: Character):
 	if unit != null:
 		$"Portrait Display".texture = unit.getPortrait()
