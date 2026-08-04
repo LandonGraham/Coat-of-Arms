@@ -136,7 +136,10 @@ func scrollSelectorActionMenu(toggle: bool):
 			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+70, 0.1)
 
 			
-			
+	
+func select():
+	var selectedAction = actionNodes[selectorPosition].label.text
+	print(selectedAction)
 func displayPortrait(unit: Character):
 	if unit != null:
 		$"Portrait Display".texture = unit.getPortrait()

@@ -266,6 +266,7 @@ func destroyMovementTiles():
 		tile.destroyThisTile()
 	for attacktile in attack_tile_layer.get_children():
 		attacktile.destroyThisTile()
+	
 
 func _move(dir: Vector2): #Function that controls cursor movement
 	
@@ -290,7 +291,9 @@ func updateState(newState: State):
 				getValidMovementPoints()
 		State.selected:
 			if newState == State.idle:
+				print("test1")
 				var tween = create_tween()
+				destroyMovementTiles()
 				tween.tween_property(self, "position", positionWhenSelected, .08)
 				currentState = State.idle
 			if newState == State.moved:
@@ -300,8 +303,8 @@ func updateState(newState: State):
 		State.moved:
 			if newState == State.idle:
 				print("test")
-				destroyMovementTiles()
 				var tween = create_tween()
+				destroyMovementTiles()
 				tween.tween_property(self, "position", positionWhenSelected, .08)
 				currentState = State.idle
 func getPortrait():

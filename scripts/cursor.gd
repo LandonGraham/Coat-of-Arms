@@ -123,7 +123,6 @@ func _physics_process(delta: float) -> void:
 				else:
 					selected_character.animated_sprite_2d.play("Idle")
 				if Input.is_action_just_pressed("backKey"):
-					selected_character.destroyMovementTiles()
 					selected_character.updateState(selected_character.State.idle)
 					findCharacterPortrait()
 					currentState = state.selecting
@@ -135,6 +134,8 @@ func _physics_process(delta: float) -> void:
 					ui_manager.displayInventory(selected_character)
 					currentState = state.invMenu
 		state.actionMenu:
+			if Input.is_action_just_pressed("InteractKey"):
+				ui_manager.select()	
 			if Input.is_action_just_pressed("backKey"):
 				ui_manager.closeActions()
 				selected_character.updateState(selected_character.State.idle)
