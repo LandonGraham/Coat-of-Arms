@@ -127,15 +127,15 @@ func _physics_process(delta: float) -> void:
 					findCharacterPortrait()
 					currentState = state.selecting
 				elif Input.is_action_just_pressed("InteractKey"):
+					await selectable_character.updateState(selectable_character.State.moved)
 					ui_manager.openActionMenu(selected_character)
-					selectable_character.updateState(selectable_character.State.moved)
 					currentState = state.actionMenu
 				elif Input.is_action_just_pressed("testInput"):
 					ui_manager.displayInventory(selected_character)
 					currentState = state.invMenu
 		state.actionMenu:
 			if Input.is_action_just_pressed("InteractKey"):
-				ui_manager.select()	
+				ui_manager.getSelection()	
 			if Input.is_action_just_pressed("backKey"):
 				ui_manager.closeActions()
 				selected_character.updateState(selected_character.State.idle)

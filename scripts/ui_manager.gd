@@ -68,23 +68,24 @@ func determineAttackAction(unit: Character) -> bool:
 		return true
 
 func getThreatenedUnits(unit: Character) -> Array[Node]:
-	var threatenedTiles: Array[Node]
-	var enemyUnits: Array [Node]
-	enemyUnits = enemy_units.get_children()
-	threatenedTiles = attack_tile_layer.get_children()
-	var threatenedUnits: Array[Node]
+	var enemyUnitsArray: Array[Node] = enemy_units.get_children()
+	var threatenedUnits: Array[Node] = []
 	
-	if threatenedTiles.is_empty() == true:
-		threatenedUnits.clear()
-	else:
-		for enemy in enemyUnits:
-			for tile in threatenedTiles:
-				if enemy.global_position == tile.global_position:
-					threatenedUnits.append(enemy)
+	if enemyUnitsArray.is_empty():
+		return threatenedUnits
+	
+	# Check if any enemy is in the character's current standing attack range
+	for enemy in enemyUnitsArray:
+		for attackOffset in unit.validAttackPoints:
+			if enemy.global_position == unit.global_position + attackOffset:
+				threatenedUnits.append(enemy)
+				break  # Don't add the same enemy twice
+	
 	return threatenedUnits
 	
 	
 func openActionMenu(unit: Character):
+	
 	#var testArray = ["Attack", "Grapple", "Magic", "Items", "Wait"]
 
 	actionNodes.clear()
@@ -137,9 +138,11 @@ func scrollSelectorActionMenu(toggle: bool):
 
 			
 	
-func select():
+func getSelection():
 	var selectedAction = actionNodes[selectorPosition].label.text
-	print(selectedAction)
+	return selectedAction
+			
+		
 func displayPortrait(unit: Character):
 	if unit != null:
 		$"Portrait Display".texture = unit.getPortrait()
