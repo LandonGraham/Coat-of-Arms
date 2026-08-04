@@ -6,9 +6,13 @@ extends CharacterBody2D
 const tile_size: Vector2 = Vector2(16, 16) #const determining how big, in pixels, a tile is (used for moving 16 pixels with the tween function)
 var sprite_node_pos_tween: Tween
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
 @onready var movementTile = preload("res://scenes/movement_tile.tscn")
 @onready var attackTile = preload("res://scenes/movement_tile2.tscn")
+
 @onready var movement_tile_layer: Node2D = $"../../MovementTileLayer"
+@onready var attack_tile_layer: Node2D = $"../../AttackTileLayer"
+
 enum State{idle, selected}
 var currentState: State
 var validPoints: Array[Vector2] = []
@@ -172,8 +176,6 @@ func getAttackTiles():
 	for point in attackSet.keys():
 		validAttackPoints.append(point)
 	
-	
-		
 
 func getTilesAtDistance(distance : int) -> Array[Vector2]:
 	var tiles : Array[Vector2] = []
@@ -230,7 +232,7 @@ func createMovementTiles(validPoints: PackedVector2Array, flag: bool): #Function
 			tile.global_position = global_position + item
 		elif flag == false:
 			var tile = attackTile.instantiate()
-			movement_tile_layer.add_child(tile)
+			attack_tile_layer.add_child(tile)
 			tile.global_position = global_position + item
 	#for child in movement_tile_layer.get_children():
 		#print(child.name)
@@ -239,6 +241,8 @@ func destroyMovementTiles():
 	if currentState == State.selected:
 		for tile in movement_tile_layer.get_children():
 			tile.destroyThisTile()
+		for attacktile in attack_tile_layer.get_children():
+			attacktile.destroyThisTile()
 	else:
 		pass
 

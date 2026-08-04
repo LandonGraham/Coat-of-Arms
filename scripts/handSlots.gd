@@ -9,9 +9,10 @@ func getMinAttackRange():
 	if hand_slots.is_empty():
 		return 0
 	else:
-		minRange = hand_slots[0].getMinRange()
+		if hand_slots[0] != null:
+			minRange = hand_slots[0].getMinRange()
 		for weapon in hand_slots:
-			if weapon.getMinRange() <= minRange:
+			if weapon != null and weapon.getMinRange() <= minRange:
 				minRange = weapon.getMinRange()
 	return minRange
 	
@@ -20,8 +21,9 @@ func getMaxAttackRange():
 	if hand_slots.is_empty():
 		return 0
 	else: 
-		maxRange = hand_slots[0].getMaxRange()
+		if hand_slots[0] != null:
+			maxRange = hand_slots[0].getMaxRange()
 		for weapon in hand_slots:
-			if weapon.getMaxRange() >= maxRange:
+			if weapon != null and weapon.getMaxRange() >= maxRange:
 				maxRange = weapon.getMaxRange()
 	return maxRange

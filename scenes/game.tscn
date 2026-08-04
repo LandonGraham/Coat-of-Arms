@@ -573,13 +573,17 @@ movementReq = 3
 
 [node name="MovementTileLayer" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=365777237]
 
+[node name="AttackTileLayer" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1595691758]
+
 [node name="Units" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1603032921]
 
 [node name="Player Test" parent="SubViewportContainer/SubViewport/Units" unique_id=1580550412 instance=ExtResource("1_uwrxv")]
 position = Vector2(168, 88)
 portrait = ExtResource("4_p57ef")
 
-[node name="Player 2" parent="SubViewportContainer/SubViewport/Units" unique_id=870714919 instance=ExtResource("1_uwrxv")]
+[node name="Enemy Units" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=2094862470]
+
+[node name="Enemy Test" parent="SubViewportContainer/SubViewport/Enemy Units" unique_id=870714919 instance=ExtResource("1_uwrxv")]
 position = Vector2(120, 56)
 portrait = ExtResource("5_u5sy4")
 

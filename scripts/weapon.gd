@@ -2,7 +2,7 @@ extends invItem
 
 class_name Weapon
 
-enum weaponType{sword, axe, hammer, polearm, bow}
+enum weaponType{sword, axe, spear, bludgeon, dagger, bow, firearm, artillery, unarmed}
 enum damageType{pierce, slash, strike, magic}
 
 @export var listOfTecnhiques: Array[Techniques]
@@ -10,6 +10,10 @@ enum damageType{pierce, slash, strike, magic}
 @export var handsMinimum: int
 @export var handsMaximum: int
 @export var baseDamage: int
+
+@export var pierceMultiplier: int
+@export var slashMultiplier: int
+@export var strikeMultiplier: int
 
 func getMinRange():
 	var lowest: int
