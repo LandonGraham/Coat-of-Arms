@@ -22,6 +22,6 @@ func getMaxAttackRange():
 	else: 
 		maxRange = hand_slots[0].getMaxRange()
 		for weapon in hand_slots:
-			if weapon.getMaxRange() <= maxRange:
+			if weapon.getMaxRange() >= maxRange:
 				maxRange = weapon.getMaxRange()
 	return maxRange
