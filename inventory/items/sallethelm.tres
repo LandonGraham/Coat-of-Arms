@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="armor" format=3 uid="uid://bgod1l45e81jk"]
+
+[ext_resource type="Script" uid="uid://yw482au00pce" path="res://scripts/armor.gd" id="1_3rmmf"]
+[ext_resource type="Texture2D" uid="uid://dadqmyg84r4o1" path="res://assets/sprites/items/helm-sallet-worn.webp" id="2_1oaje"]
+
+[resource]
+script = ExtResource("1_3rmmf")
+armor_type = 1
+skillRequirement = 10
+durability = 100
+canBeTop = true
+pierceResistance = 2
+slashResistance = 5
+strikeResistance = 2
+name = "Sallet"
+texture = ExtResource("2_1oaje")
+weight = 3
+metadata/_custom_type_script = "uid://yw482au00pce"

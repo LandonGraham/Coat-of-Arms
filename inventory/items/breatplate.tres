@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="armor" format=3 uid="uid://c8nvgfqvl7bud"]
+
+[ext_resource type="Script" uid="uid://yw482au00pce" path="res://scripts/armor.gd" id="1_icbca"]
+[ext_resource type="Texture2D" uid="uid://b4euberutkg3o" path="res://assets/sprites/items/breastplate-cuirass-steel-grey.webp" id="2_crgd6"]
+
+[resource]
+script = ExtResource("1_icbca")
+armor_type = 2
+category = 1
+skillRequirement = 20
+durability = 100
+canBeTop = true
+pierceResistance = 5
+slashResistance = 5
+strikeResistance = 2
+name = "Breastplate"
+texture = ExtResource("2_crgd6")
+weight = 6
+metadata/_custom_type_script = "uid://yw482au00pce"

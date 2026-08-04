@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Techniques" format=3 uid="uid://c62173ghe6pq"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_tcrfc"]
+
+[resource]
+script = ExtResource("1_tcrfc")
+name = "Pommel Strike"
+damage_type = 2
+skillRequirement = 15
+noOfHandsToUse = 2
+statToBeUsed = 1
+attackRange = 1
+minAttackRange = 1
+damageMod = 2
+toHitMod = -2
+parryChanceMod = -10
+metadata/_custom_type_script = "uid://p345d64kh2nk"

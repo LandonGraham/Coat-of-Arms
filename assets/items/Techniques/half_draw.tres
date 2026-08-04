@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Techniques" format=3 uid="uid://cxibulvj7nih4"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_w73fn"]
+
+[resource]
+script = ExtResource("1_w73fn")
+name = "Half-Draw"
+skillRequirement = 10
+noOfHandsToUse = 2
+statToBeUsed = 2
+attackRange = 2
+minAttackRange = 2
+damageMod = 1
+toHitMod = 1
+parryChanceMod = -100
+metadata/_custom_type_script = "uid://p345d64kh2nk"

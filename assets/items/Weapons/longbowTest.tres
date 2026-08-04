@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://cniprrutd1v5y"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_ocsku"]
+[ext_resource type="Resource" uid="uid://cxibulvj7nih4" path="res://assets/items/Techniques/half_draw.tres" id="2_sm78i"]
+[ext_resource type="Resource" uid="uid://b0miptek4s3v3" path="res://assets/items/Techniques/full_draw.tres" id="3_p0ue4"]
+[ext_resource type="Script" uid="uid://ucficahter2k" path="res://scripts/weapon.gd" id="4_q128l"]
+[ext_resource type="Texture2D" uid="uid://bjpcupyshnfc" path="res://assets/sprites/items/DaggerTest.png" id="5_s4u8c"]
+
+[resource]
+script = ExtResource("4_q128l")
+listOfTecnhiques = Array[ExtResource("1_ocsku")]([ExtResource("2_sm78i"), ExtResource("3_p0ue4")])
+handsMinimum = 2
+handsMaximum = 2
+baseDamage = 3
+name = "Longbow"
+texture = ExtResource("5_s4u8c")
+weight = 3
+metadata/_custom_type_script = "uid://ucficahter2k"

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ArmorInventory" format=3 uid="uid://bfh2eipoliy7l"]
+
+[ext_resource type="Script" uid="uid://c3e76v40g1y2m" path="res://scripts/armorSlots.gd" id="1_8dlgu"]
+[ext_resource type="Resource" uid="uid://bgod1l45e81jk" path="res://inventory/items/sallethelm.tres" id="2_ae34k"]
+[ext_resource type="Script" uid="uid://dbhhiuj3gjmck" path="res://scripts/ArmorInventory.gd" id="2_ljhls"]
+[ext_resource type="Resource" uid="uid://c8nvgfqvl7bud" path="res://inventory/items/breatplate.tres" id="3_wfv02"]
+[ext_resource type="Resource" uid="uid://5qvnwcovv2xc" path="res://inventory/items/leather_gloves.tres" id="4_wfqt0"]
+[ext_resource type="Resource" uid="uid://3mftn22iekah" path="res://inventory/items/hose.tres" id="5_7r160"]
+
+[sub_resource type="Resource" id="Resource_or331"]
+script = ExtResource("1_8dlgu")
+upperLayer = ExtResource("2_ae34k")
+metadata/_custom_type_script = "uid://c3e76v40g1y2m"
+
+[sub_resource type="Resource" id="Resource_uhox0"]
+script = ExtResource("1_8dlgu")
+upperLayer = ExtResource("3_wfv02")
+metadata/_custom_type_script = "uid://c3e76v40g1y2m"
+
+[sub_resource type="Resource" id="Resource_7m10i"]
+script = ExtResource("1_8dlgu")
+bottomLayer = ExtResource("4_wfqt0")
+metadata/_custom_type_script = "uid://c3e76v40g1y2m"
+
+[sub_resource type="Resource" id="Resource_7qt32"]
+script = ExtResource("1_8dlgu")
+bottomLayer = ExtResource("5_7r160")
+metadata/_custom_type_script = "uid://c3e76v40g1y2m"
+
+[resource]
+script = ExtResource("2_ljhls")
+armorInventory = Array[ExtResource("1_8dlgu")]([SubResource("Resource_or331"), SubResource("Resource_uhox0"), SubResource("Resource_7m10i"), SubResource("Resource_7qt32")])
+metadata/_custom_type_script = "uid://dbhhiuj3gjmck"

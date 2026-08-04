@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b8txuo4yo3kb1"]
+
+[ext_resource type="Script" uid="uid://bg3i6ghw1m4a8" path="res://scripts/map_tile.gd" id="1_bn37q"]
+
+[node name="TileController" type="Node2D" unique_id=216143884]
+script = ExtResource("1_bn37q")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1578005090]

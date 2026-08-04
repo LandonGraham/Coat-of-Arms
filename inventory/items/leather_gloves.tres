@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="armor" format=3 uid="uid://5qvnwcovv2xc"]
+
+[ext_resource type="Script" uid="uid://yw482au00pce" path="res://scripts/armor.gd" id="1_3y3sw"]
+[ext_resource type="Texture2D" uid="uid://bfecf282olws6" path="res://assets/sprites/items/glove-simple-leather-orange.webp" id="2_xfk7x"]
+
+[resource]
+script = ExtResource("1_3y3sw")
+category = 3
+durability = 100
+canBeBottom = true
+slashResistance = 1
+magicResistance = 1
+name = "Leather Gloves"
+texture = ExtResource("2_xfk7x")
+weight = 1
+metadata/_custom_type_script = "uid://yw482au00pce"

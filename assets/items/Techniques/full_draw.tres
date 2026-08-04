@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Techniques" format=3 uid="uid://b0miptek4s3v3"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_keigw"]
+
+[resource]
+script = ExtResource("1_keigw")
+name = "Full-Draw"
+skillRequirement = 25
+noOfHandsToUse = 2
+statToBeUsed = 2
+attackRange = 3
+minAttackRange = 2
+damageMod = 3
+toHitMod = 2
+parryChanceMod = -100
+metadata/_custom_type_script = "uid://p345d64kh2nk"

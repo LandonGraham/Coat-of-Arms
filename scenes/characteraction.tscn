@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b83t1ia38xmxd"]
+
+[ext_resource type="Script" uid="uid://jl6v5ui1i1dc" path="res://scripts/characteraction.gd" id="1_s4prc"]
+[ext_resource type="Texture2D" uid="uid://vf4bdeps151d" path="res://assets/sprites/UI/ActionBox.png" id="2_s4prc"]
+
+[node name="ActionLabel" type="Node2D" unique_id=1797111790]
+script = ExtResource("1_s4prc")
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1356590753]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LabelBackground" type="TextureRect" parent="." unique_id=815177930]
+offset_right = 200.0
+offset_bottom = 44.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_s4prc")
+
+[node name="Label" type="Label" parent="." unique_id=636954678]
+offset_left = 76.0
+offset_top = 14.0
+offset_right = 241.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1

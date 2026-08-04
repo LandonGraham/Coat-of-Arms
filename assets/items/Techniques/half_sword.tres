@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Techniques" format=3 uid="uid://x1goacdbs0dd"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_wjsyy"]
+
+[resource]
+script = ExtResource("1_wjsyy")
+name = "Half Sword"
+skillRequirement = 30
+noOfHandsToUse = 2
+statToBeUsed = 2
+attackRange = 1
+minAttackRange = 1
+toHitMod = 3
+parryChanceMod = 10
+metadata/_custom_type_script = "uid://p345d64kh2nk"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://cuaau53nakg8g"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_ch1dd"]
+[ext_resource type="Script" uid="uid://ucficahter2k" path="res://scripts/weapon.gd" id="2_2nx67"]
+[ext_resource type="Texture2D" uid="uid://bjpcupyshnfc" path="res://assets/sprites/items/DaggerTest.png" id="3_cp3bs"]
+
+[resource]
+script = ExtResource("2_2nx67")
+handsMinimum = 1
+handsMaximum = 1
+baseDamage = 2
+name = "Dagger"
+texture = ExtResource("3_cp3bs")
+metadata/_custom_type_script = "uid://ucficahter2k"

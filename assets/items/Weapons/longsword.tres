@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://x28aybx5is4v"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_lrrkd"]
+[ext_resource type="Resource" uid="uid://chgw6qwjtrc3k" path="res://assets/items/Techniques/cut.tres" id="2_yqsxt"]
+[ext_resource type="Resource" uid="uid://duggbjsq4e616" path="res://assets/items/Techniques/thrust.tres" id="3_7v2k7"]
+[ext_resource type="Script" uid="uid://ucficahter2k" path="res://scripts/weapon.gd" id="4_1u68k"]
+[ext_resource type="Texture2D" uid="uid://bsa7r6xrcjuo7" path="res://assets/sprites/items/Sword Icon.webp" id="5_0gtfw"]
+
+[resource]
+script = ExtResource("4_1u68k")
+listOfTecnhiques = Array[ExtResource("1_lrrkd")]([ExtResource("2_yqsxt"), ExtResource("3_7v2k7")])
+handsMinimum = 1
+handsMaximum = 2
+baseDamage = 3
+name = "Longsword"
+texture = ExtResource("5_0gtfw")
+weight = 2
+metadata/_custom_type_script = "uid://ucficahter2k"

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://crndw6ko1edt0"]
+
+[ext_resource type="Texture2D" uid="uid://ctr4wnmomd2ig" path="res://assets/sprites/UI/weaponTile.png" id="1_l2rut"]
+
+[node name="MovementTile" type="Node2D" unique_id=1996551362]
+show_behind_parent = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=323478317]
+show_behind_parent = true
+texture = ExtResource("1_l2rut")

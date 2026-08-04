@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HandSlots" format=3 uid="uid://btnl4h12beget"]
+
+[ext_resource type="Script" uid="uid://ucficahter2k" path="res://scripts/weapon.gd" id="1_wdho1"]
+[ext_resource type="Resource" uid="uid://cniprrutd1v5y" path="res://assets/items/Weapons/longbowTest.tres" id="2_wdho1"]
+[ext_resource type="Script" uid="uid://vn2ivi11ouvy" path="res://scripts/handSlots.gd" id="3_b2elg"]
+
+[resource]
+script = ExtResource("3_b2elg")
+hand_slots = Array[ExtResource("1_wdho1")]([ExtResource("2_wdho1")])
+metadata/_custom_type_script = "uid://vn2ivi11ouvy"

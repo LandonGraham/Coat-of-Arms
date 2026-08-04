@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Inv" format=3 uid="uid://c8rr2whard30y"]
+
+[ext_resource type="Script" uid="uid://bffwhx1ybwy4h" path="res://scripts/invetoryItem.gd" id="1_7s87w"]
+[ext_resource type="Script" uid="uid://bsgmo8td8ykdu" path="res://scripts/inventory.gd" id="2_4fjsd"]
+[ext_resource type="Resource" uid="uid://cuaau53nakg8g" path="res://assets/items/Weapons/daggerTest.tres" id="2_besvt"]
+[ext_resource type="Resource" uid="uid://x28aybx5is4v" path="res://assets/items/Weapons/longsword.tres" id="3_r0wra"]
+
+[resource]
+script = ExtResource("2_4fjsd")
+items = Array[ExtResource("1_7s87w")]([ExtResource("2_besvt"), null, null, ExtResource("3_r0wra"), ExtResource("2_besvt")])
+metadata/_custom_type_script = "uid://bsgmo8td8ykdu"

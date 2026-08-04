@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="armor" format=3 uid="uid://3mftn22iekah"]
+
+[ext_resource type="Script" uid="uid://yw482au00pce" path="res://scripts/armor.gd" id="1_y2atr"]
+[ext_resource type="Texture2D" uid="uid://bnch6sdytjowy" path="res://assets/sprites/items/pants-orange-red-fabric-pants.webp" id="2_8hcso"]
+
+[resource]
+script = ExtResource("1_y2atr")
+category = 2
+durability = 100
+canBeBottom = true
+slashResistance = 1
+name = "Hose"
+texture = ExtResource("2_8hcso")
+weight = 1
+metadata/_custom_type_script = "uid://yw482au00pce"
