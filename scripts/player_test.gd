@@ -13,7 +13,7 @@ var sprite_node_pos_tween: Tween
 @onready var movement_tile_layer: Node2D = $"../../MovementTileLayer"
 @onready var attack_tile_layer: Node2D = $"../../AttackTileLayer"
 
-enum State{idle, selected, moved}
+enum State{idle, selected, moved, turnFinished}
 var currentState: State
 var validPoints: Array[Vector2] = []
 var validAttackPoints: Array[Vector2] = []
@@ -284,28 +284,39 @@ func _physics_process(delta: float) -> void:
 
 func updateState(newState: State):
 	match currentState:
+		
 		State.idle:
+			
 			if newState == State.selected:
 				currentState = State.selected
 				positionWhenSelected = position
 				getValidMovementPoints()
+		
 		State.selected:
+			
 			if newState == State.idle:
 				print("test1")
 				var tween = create_tween()
 				destroyMovementTiles()
 				tween.tween_property(self, "position", positionWhenSelected, .08)
 				currentState = State.idle
+			
 			if newState == State.moved:
 				destroyMovementTiles()
 				getStandingAttackTiles()
 				currentState = State.moved
+		
 		State.moved:
+			
 			if newState == State.idle:
-				print("test")
 				var tween = create_tween()
 				destroyMovementTiles()
 				tween.tween_property(self, "position", positionWhenSelected, .08)
 				currentState = State.idle
+			
+			if newState == State.turnFinished:
+				destroyMovementTiles()
+				currentState = State.idle
+				
 func getPortrait():
 	return portrait
