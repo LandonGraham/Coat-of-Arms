@@ -130,16 +130,24 @@ func _physics_process(delta: float) -> void:
 					await selectable_character.updateState(selectable_character.State.moved)
 					ui_manager.openActionMenu(selected_character)
 					currentState = state.actionMenu
-				elif Input.is_action_just_pressed("testInput"):
-					ui_manager.displayInventory(selected_character)
-					currentState = state.invMenu
+				#elif Input.is_action_just_pressed("testInput"):
+					#ui_manager.displayInventory(selected_character)
+					#currentState = state.invMenu
 		state.actionMenu:
 			if Input.is_action_just_pressed("InteractKey"):
 				match ui_manager.getSelection():
+					
 					"Wait":
 						selected_character.updateState(selected_character.State.turnFinished)
 						ui_manager.closeActions()
 						currentState = state.selecting
+						
+					"Items":
+						ui_manager.closeActions()
+						ui_manager.displayInventory(selected_character)
+						currentState = state.invMenu
+						
+					
 			if Input.is_action_just_pressed("backKey"):
 				ui_manager.closeActions()
 				selected_character.updateState(selected_character.State.idle)
@@ -148,3 +156,8 @@ func _physics_process(delta: float) -> void:
 				ui_manager.scrollSelectorActionMenu(false)
 			if Input.is_action_just_pressed("InputDownS"):
 				ui_manager.scrollSelectorActionMenu(true)
+		state.invMenu:
+			if Input.is_action_just_pressed("backKey"):
+				ui_manager.closeInventory()
+				ui_manager.openActionMenu(selected_character)
+				currentState = state.actionMenu
