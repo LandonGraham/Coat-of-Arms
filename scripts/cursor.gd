@@ -47,6 +47,19 @@ func try_select_character(): #The try select character function looks at the til
 				return unit
 		return null
 				
+func getCharacterValidTargets(unit: Character):
+	var targets = []
+	unit.getStandingAttackTiles()
+	var offset_x = unit.global_position.x
+	var offset_y = unit.global_position.y
+	for enemy in hoverable_units.get_children():
+		for tile in unit.validAttackPoints:
+			if enemy.global_position.x == (tile.x + offset_x) and enemy.global_position.y == (tile.y + offset_y):
+				targets.append(enemy)
+	print (targets)
+	
+	for tile in unit.validAttackPoints:
+		pass
 func select_character(unit: Character) -> void: #Select character changes the selected character variable to the parameter unit.
 		selected_character = unit
 		unit.updateState(unit.State.selected)
@@ -133,7 +146,9 @@ func _physics_process(delta: float) -> void:
 				#elif Input.is_action_just_pressed("testInput"):
 					#ui_manager.displayInventory(selected_character)
 					#currentState = state.invMenu
+		
 		state.actionMenu:
+			
 			if Input.is_action_just_pressed("InteractKey"):
 				match ui_manager.getSelection():
 					
@@ -147,16 +162,23 @@ func _physics_process(delta: float) -> void:
 						ui_manager.displayInventory(selected_character)
 						currentState = state.invMenu
 						
+					"Attack":
+						getCharacterValidTargets(selected_character)
+						
 					
 			if Input.is_action_just_pressed("backKey"):
 				ui_manager.closeActions()
 				selected_character.updateState(selected_character.State.idle)
 				currentState = state.selecting
+				
 			if Input.is_action_just_pressed("inputUpW"):
 				ui_manager.scrollSelectorActionMenu(false)
+				
 			if Input.is_action_just_pressed("InputDownS"):
 				ui_manager.scrollSelectorActionMenu(true)
+		
 		state.invMenu:
+			
 			if Input.is_action_just_pressed("backKey"):
 				ui_manager.closeInventory()
 				ui_manager.openActionMenu(selected_character)
