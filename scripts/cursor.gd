@@ -4,7 +4,9 @@ const tile_size: Vector2 = Vector2(16, 16) #Size of the tile that the cursor wil
 var sprite_node_pos_tween: Tween
 
 @export var selectable_units: Node2D #A variable meant to point to the Units node in the scene tree, whose children are the units currently on the map
-@export var hoverable_units: Node2D 
+@export var hoverable_units: Node2D #A variable that points to the Enemy units node in the scene tree, whose children are the enemy units currently on the map.
+
+
 var selected_character: Character = null #Character type defined in Player_Test.gd script
 var selectable_character: Character = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -12,8 +14,10 @@ var selectable_character: Character = null
 @onready var movement_tile_layer: Node2D = $"../MovementTileLayer"
 @export var camera_2d: Camera2D
 
-enum state{selecting, selected, invMenu, actionMenu}
+enum state{selecting, selected, invMenu, actionMenu, selectingTargets}
 var currentState: state
+var currentTargetIndex: int = 0
+var targets: Array[Character] = []
 
 func _move(dir: Vector2):
 
@@ -34,6 +38,22 @@ func _move(dir: Vector2):
 
 	# Notify the camera after every movement.
 	camera_2d.cursor_moved(global_position)
+	
+func movetoPosition(pos: Vector2, duration: float):
+	if sprite_node_pos_tween:
+		sprite_node_pos_tween.kill()
+
+	sprite_node_pos_tween = create_tween()
+	sprite_node_pos_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	sprite_node_pos_tween.tween_property(
+		$AnimatedSprite2D,
+		"global_position",
+		pos,
+		duration
+	).set_trans(Tween.TRANS_SINE)
+
+	# Notify the camera after every movement.
+	camera_2d.cursor_moved(global_position)
 
 func try_select_character(): #The try select character function looks at the tile where the cursor currently is, and returns the Character type of any unit in the same tile.
 	#if selected_character != null:
@@ -47,8 +67,8 @@ func try_select_character(): #The try select character function looks at the til
 				return unit
 		return null
 				
-func getCharacterValidTargets(unit: Character):
-	var targets = []
+func getCharacterValidTargets(unit: Character) -> Array[Character]:
+	targets = []
 	unit.getStandingAttackTiles()
 	var offset_x = unit.global_position.x
 	var offset_y = unit.global_position.y
@@ -56,7 +76,31 @@ func getCharacterValidTargets(unit: Character):
 		for tile in unit.validAttackPoints:
 			if enemy.global_position.x == (tile.x + offset_x) and enemy.global_position.y == (tile.y + offset_y):
 				targets.append(enemy)
-	print (targets)
+	return targets
+	
+func goToFirstTarget(unit: Character):
+	targets = getCharacterValidTargets(unit)
+	if targets.is_empty():
+		pass
+	else:
+		movetoPosition(targets[0].global_position, 0.06)
+		currentTargetIndex = 0
+	
+func scrollBetweenPotentialAttackers(unit: Character, dir: String):
+	if targets.is_empty():
+		pass
+	else:
+		if dir == "advance":
+			currentTargetIndex += 1
+			if currentTargetIndex >= targets.size():
+				currentTargetIndex = 0
+		
+		if dir == "retreat":
+			currentTargetIndex -= 1
+			if currentTargetIndex < 0:
+				currentTargetIndex = targets.size()-1
+				
+		movetoPosition(targets[currentTargetIndex].global_position, 0.06)
 	
 	for tile in unit.validAttackPoints:
 		pass
@@ -163,8 +207,9 @@ func _physics_process(delta: float) -> void:
 						currentState = state.invMenu
 						
 					"Attack":
-						getCharacterValidTargets(selected_character)
-						
+						ui_manager.closeActions()
+						currentState = state.selectingTargets
+						goToFirstTarget(selected_character)
 					
 			if Input.is_action_just_pressed("backKey"):
 				ui_manager.closeActions()
@@ -177,6 +222,23 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("InputDownS"):
 				ui_manager.scrollSelectorActionMenu(true)
 		
+		state.selectingTargets:
+			
+			if Input.is_action_just_pressed("backKey"):
+				movetoPosition(selected_character.global_position, 0.06)
+				ui_manager.openActionMenu(selected_character)
+				currentState = state.actionMenu
+				
+			if Input.is_action_just_pressed("inputUpW"):
+				scrollBetweenPotentialAttackers(selected_character, "advance")
+			if Input.is_action_just_pressed("InputRightD"):
+				scrollBetweenPotentialAttackers(selected_character, "advance")
+			if Input.is_action_just_pressed("InputDownS"):
+				scrollBetweenPotentialAttackers(selected_character, "retreat")
+			if Input.is_action_just_pressed("inputLeftA"):
+				scrollBetweenPotentialAttackers(selected_character, "retreat")
+				
+			
 		state.invMenu:
 			
 			if Input.is_action_just_pressed("backKey"):
