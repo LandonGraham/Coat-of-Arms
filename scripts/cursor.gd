@@ -55,15 +55,15 @@ func movetoPosition(pos: Vector2, duration: float):
 	# Notify the camera after every movement.
 	camera_2d.cursor_moved(global_position)
 
-func try_select_character(): #The try select character function looks at the tile where the cursor currently is, and returns the Character type of any unit in the same tile.
+func try_select_character(pos: Vector2): #The try select character function looks at the tile where the cursor currently is, and returns the Character type of any unit in the same tile.
 	#if selected_character != null:
 		#selected_character = null
 		#return null
 		for unit in selectable_units.get_children():
-			if unit is Character and unit.global_position == global_position:
+			if unit is Character and unit.global_position == pos:
 				return unit
 		for unit in hoverable_units.get_children():
-			if unit is Character and unit.global_position == global_position:
+			if unit is Character and unit.global_position == pos:
 				return unit
 		return null
 				
@@ -85,9 +85,11 @@ func goToFirstTarget(unit: Character):
 	else:
 		movetoPosition(targets[0].global_position, 0.06)
 		currentTargetIndex = 0
+		findCharacterPortrait(targets[0].global_position)
+		
 	
 func scrollBetweenPotentialAttackers(unit: Character, dir: String):
-	if targets.is_empty():
+	if targets.size() <= 1:
 		pass
 	else:
 		if dir == "advance":
@@ -101,6 +103,7 @@ func scrollBetweenPotentialAttackers(unit: Character, dir: String):
 				currentTargetIndex = targets.size()-1
 				
 		movetoPosition(targets[currentTargetIndex].global_position, 0.06)
+		findCharacterPortrait(targets[currentTargetIndex].global_position)
 	
 	for tile in unit.validAttackPoints:
 		pass
@@ -118,8 +121,8 @@ func isValidTile(testPosition: Vector2) -> bool:
 				return true
 	return false	
 
-func findCharacterPortrait():
-	selectable_character = try_select_character()
+func findCharacterPortrait(pos: Vector2):
+	selectable_character = try_select_character(pos)
 	if selectable_character != null: #Every time the cursor is moved, it checks to see if its hovering over a selectable character.
 		animated_sprite_2d.play("HoveringSelectable")
 		ui_manager.displayPortrait(selectable_character)
@@ -133,19 +136,19 @@ func _physics_process(delta: float) -> void:
 			if !sprite_node_pos_tween or !sprite_node_pos_tween.is_running(): #movement controls, WASD and arrows.
 				if Input.is_action_pressed("inputUpW"):
 					_move(Vector2(0, -1))
-					findCharacterPortrait()
+					findCharacterPortrait(global_position)
 				elif Input.is_action_pressed("InputDownS"):
 					_move(Vector2(0, 1))
-					findCharacterPortrait()
+					findCharacterPortrait(global_position)
 				elif Input.is_action_pressed("inputLeftA"):
 					_move(Vector2(-1, 0))
-					findCharacterPortrait()
+					findCharacterPortrait(global_position)
 				elif Input.is_action_pressed("InputRightD"):
 					_move(Vector2(1, 0))
-					findCharacterPortrait()
+					findCharacterPortrait(global_position)
 						
 				if Input.is_action_just_pressed("InteractKey"): #When pressing space, tries to select a character if there is one available.
-					var unit: Character = try_select_character()
+					var unit: Character = try_select_character(global_position)
 					if unit != null:
 						select_character(unit)
 						animated_sprite_2d.play("Selected")
@@ -158,33 +161,29 @@ func _physics_process(delta: float) -> void:
 						selected_character._move(Vector2(0, -1))
 						selected_character.animated_sprite_2d.play("Run Up")
 						_move(Vector2(0, -1))
-						animated_sprite_2d.play("Idle")
 				elif Input.is_action_pressed("InputDownS"):
 					if isValidTile(position + Vector2(0, 16)):
 						selected_character._move(Vector2(0, 1))
 						selected_character.animated_sprite_2d.play("Run Down")
 						_move(Vector2(0, 1))
-						animated_sprite_2d.play("Idle")
 				elif Input.is_action_pressed("inputLeftA"):
 					if isValidTile(position + Vector2(-16, 0)):
 						selected_character._move(Vector2(-1, 0))
 						selected_character.animated_sprite_2d.play("Run Left")
 						_move(Vector2(-1, 0))
-						animated_sprite_2d.play("Idle")
 				elif Input.is_action_pressed("InputRightD"):
 					if isValidTile(position + Vector2(16, 0)):
 						selected_character._move(Vector2(1, 0))
 						selected_character.animated_sprite_2d.play("Run Right")
 						_move(Vector2(1, 0))
-						animated_sprite_2d.play("Idle")
 				else:
 					selected_character.animated_sprite_2d.play("Idle")
 				if Input.is_action_just_pressed("backKey"):
 					selected_character.updateState(selected_character.State.idle)
-					findCharacterPortrait()
+					findCharacterPortrait(global_position)
 					currentState = state.selecting
 				elif Input.is_action_just_pressed("InteractKey"):
-					await selectable_character.updateState(selectable_character.State.moved)
+					selected_character.updateState(selected_character.State.moved)
 					ui_manager.openActionMenu(selected_character)
 					currentState = state.actionMenu
 				#elif Input.is_action_just_pressed("testInput"):
@@ -227,6 +226,8 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("backKey"):
 				movetoPosition(selected_character.global_position, 0.06)
 				ui_manager.openActionMenu(selected_character)
+				findCharacterPortrait(selected_character.global_position)
+				animated_sprite_2d.play("Selected")
 				currentState = state.actionMenu
 				
 			if Input.is_action_just_pressed("inputUpW"):
