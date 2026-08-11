@@ -37,7 +37,7 @@ func getCombatantOneNumberOfAttacks() -> int:
 	
 func chooseTechniques(unit: Character):
 	
-	combatantOne.setStatValue("Agility", 12)
+	combatantOne.setStatValue("Agility", 24)
 	combatantTwo.setStatValue("Agility", 4)
 	
 	print("Choose from the following techniques:")

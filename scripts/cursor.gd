@@ -56,6 +56,8 @@ func movetoPosition(pos: Vector2, duration: float):
 		pos,
 		duration
 	).set_trans(Tween.TRANS_SINE)
+	
+	global_position = pos
 
 	# Notify the camera after every movement.
 	camera_2d.cursor_moved(global_position)
@@ -107,6 +109,7 @@ func scrollBetweenPotentialAttackers(unit: Character, dir: String):
 				currentTargetIndex = targets.size()-1
 				
 		movetoPosition(targets[currentTargetIndex].global_position, 0.06)
+		print(global_position)
 		findCharacterPortrait(targets[currentTargetIndex].global_position)
 	
 	for tile in unit.validAttackPoints:
@@ -114,8 +117,9 @@ func scrollBetweenPotentialAttackers(unit: Character, dir: String):
 		
 func select_target():
 	selected_target = try_select_character(global_position)
+	print(global_position)
 	if selected_target != null:
-		print(selected_target)
+		print(selected_target.name)
 	animated_sprite_2d.play("Selected")
 
 func select_character(unit: Character) -> void: #Select character changes the selected character variable to the parameter unit.
