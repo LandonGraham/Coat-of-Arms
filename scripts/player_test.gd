@@ -83,6 +83,27 @@ func calculateWeaponRange():
 					highestRange = technique.attackRange
 	return highestRange
 
+func setStatValue(name: String, val:int):
+	match name:
+		"Fortitude": 
+			fortitude.setValue(val)
+		"Body": 
+			body.setValue(val)
+		"Dexterity": 
+			dexterity.setValue(val)
+		"Agility": 
+			agility.setValue(val)
+		"Mind": 
+			mind.setValue(val)
+		"Luck": 
+			luck.setValue(val)
+
+func getEquippedWeapon() -> Weapon:
+	if handInv.hand_slots.size() > 0:
+		return handInv.hand_slots[0]
+	else:
+		return null
+		
 func calculateMovement():
 	if calculateAgility() == 0:
 		return 4
@@ -176,7 +197,6 @@ func getAttackTiles():
 	for point in attackSet.keys():
 		validAttackPoints.append(point)
 	
-
 func getTilesAtDistance(distance : int) -> Array[Vector2]:
 	var tiles : Array[Vector2] = []
 
@@ -247,7 +267,6 @@ func getStandingAttackTiles():
 	# Create only the attack tiles (red)
 	createMovementTiles(validAttackPoints, false)
 
-		
 func createMovementTiles(validPoints: PackedVector2Array, flag: bool): #Function logic: Creates attack and movement tiles using a list of valid tiles and a flag. If the flag is true, the function uses the provided array to create movement tiles. If the flag is false, it uses the provided array to create attack tiles.
 	for item in validPoints:
 		if flag == true:
@@ -267,7 +286,6 @@ func destroyMovementTiles():
 	for attacktile in attack_tile_layer.get_children():
 		attacktile.destroyThisTile()
 	
-
 func _move(dir: Vector2): #Function that controls cursor movement
 	
 	global_position += dir * tile_size

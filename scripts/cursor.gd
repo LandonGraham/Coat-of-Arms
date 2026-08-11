@@ -9,12 +9,17 @@ var sprite_node_pos_tween: Tween
 
 var selected_character: Character = null #Character type defined in Player_Test.gd script
 var selectable_character: Character = null
+
+var selected_target: Character = null
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ui_manager: CanvasLayer = $"../../../UI Manager"
+@onready var combat_manager: Control = $"../../../CombatManager"
+
 @onready var movement_tile_layer: Node2D = $"../MovementTileLayer"
 @export var camera_2d: Camera2D
 
-enum state{selecting, selected, invMenu, actionMenu, selectingTargets}
+enum state{selecting, selected, invMenu, actionMenu, selectingTargets, combat}
 var currentState: state
 var currentTargetIndex: int = 0
 var targets: Array[Character] = []
@@ -69,7 +74,6 @@ func try_select_character(pos: Vector2): #The try select character function look
 				
 func getCharacterValidTargets(unit: Character) -> Array[Character]:
 	targets = []
-	unit.getStandingAttackTiles()
 	var offset_x = unit.global_position.x
 	var offset_y = unit.global_position.y
 	for enemy in hoverable_units.get_children():
@@ -107,6 +111,13 @@ func scrollBetweenPotentialAttackers(unit: Character, dir: String):
 	
 	for tile in unit.validAttackPoints:
 		pass
+		
+func select_target():
+	selected_target = try_select_character(global_position)
+	if selected_target != null:
+		print(selected_target)
+	animated_sprite_2d.play("Selected")
+
 func select_character(unit: Character) -> void: #Select character changes the selected character variable to the parameter unit.
 		selected_character = unit
 		unit.updateState(unit.State.selected)
@@ -229,6 +240,12 @@ func _physics_process(delta: float) -> void:
 				findCharacterPortrait(selected_character.global_position)
 				animated_sprite_2d.play("Selected")
 				currentState = state.actionMenu
+				
+			if Input.is_action_just_pressed("InteractKey"):
+				select_target()
+				combat_manager.setCombatants(selected_character, selected_target)
+				combat_manager.updateState(combat_manager.state.selectTechniques)
+				currentState = state.combat
 				
 			if Input.is_action_just_pressed("inputUpW"):
 				scrollBetweenPotentialAttackers(selected_character, "advance")

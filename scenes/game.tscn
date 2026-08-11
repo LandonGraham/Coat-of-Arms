@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dp1mgdr38myy3" path="res://assets/sprites/UI/StairPlaceholder.png" id="5_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://glav66tublnf" path="res://assets/sprites/portraits/Zarislov.png" id="5_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://cb33pufochnx3" path="res://assets/sprites/UI/Selector.png" id="8_gee14"]
-[ext_resource type="Script" uid="uid://bugv28l6wq4i" path="res://scripts/combat_manager.gd" id="14_trtic"]
+[ext_resource type="PackedScene" uid="uid://c83w0kwf2t6ua" path="res://scenes/combat_manager.tscn" id="14_trtic"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -619,9 +619,4 @@ texture = ExtResource("8_gee14")
 
 [node name="Action Display" type="Node2D" parent="UI Manager" unique_id=2049609178]
 
-[node name="CombatManager" type="Control" parent="." unique_id=481273359]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("14_trtic")
+[node name="CombatManager" parent="." unique_id=10987141 instance=ExtResource("14_trtic")]

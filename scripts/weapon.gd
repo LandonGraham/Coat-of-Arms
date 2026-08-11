@@ -36,4 +36,10 @@ func getMaxRange():
 			if technique.attackRange >= highest:
 				highest = technique.attackRange
 	return highest
+	
+func getListOfAllTechniques():
+	return listOfTecnhiques
+	
+func getListOfUseableTecnhiques(unit: Character):
+	pass
 		

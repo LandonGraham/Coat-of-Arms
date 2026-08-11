@@ -4,6 +4,20 @@ class_name HandSlots
 
 @export var hand_slots: Array[Weapon]
 
+func equip(item: Weapon) -> bool:
+	if getNumberOfItems() < 2: 
+		hand_slots.append(Weapon)
+		return true
+	else:
+		return false
+
+func getNumberOfItems():
+	var numberOfItems = 0
+	for item in hand_slots:
+		if item != null:
+			numberOfItems += 1
+	return numberOfItems
+
 func getMinAttackRange():
 	var minRange: int
 	if hand_slots.is_empty():
