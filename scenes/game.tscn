@@ -33,6 +33,7 @@
 [ext_resource type="Resource" uid="uid://cnyr5drwd4yhy" path="res://assets/items/Weapons/club.tres" id="22_v2yb1"]
 [ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="24_05nbr"]
 [ext_resource type="Resource" uid="uid://cniprrutd1v5y" path="res://assets/items/Weapons/longbowTest.tres" id="27_js0lu"]
+[ext_resource type="PackedScene" uid="uid://brx2r6llqxrl6" path="res://scenes/dialogue_manager.tscn" id="32_js0lu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -738,6 +739,7 @@ script = ExtResource("5_iywne")
 
 [node name="PortraitDisplay" parent="UI Manager" unique_id=1511676354 instance=ExtResource("13_ir15t")]
 position = Vector2(41, 611)
+scale = Vector2(0.8, 0.8)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI Manager/PortraitDisplay" unique_id=1180718487]
 libraries/ = SubResource("AnimationLibrary_ssvqc")
@@ -748,6 +750,8 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_gee14")
 
 [node name="Action Display" type="Node2D" parent="UI Manager" unique_id=2049609178]
+
+[node name="DialogueManager" parent="UI Manager" unique_id=799841232 instance=ExtResource("32_js0lu")]
 
 [node name="CombatManager" parent="." unique_id=10987141 instance=ExtResource("14_trtic")]
 script = ExtResource("16_ca42v")
