@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://cuva6ar8mwg7f" path="res://assets/spritesheets/almspritegreen.png" id="1_a8v3n"]
 [ext_resource type="Script" uid="uid://dchjs7tetj5ra" path="res://scripts/player_test.gd" id="1_fdpfy"]
-[ext_resource type="Resource" uid="uid://c8rr2whard30y" path="res://inventory/fiveSlotInventory.tres" id="2_2ue4q"]
+[ext_resource type="Resource" uid="uid://c8rr2whard30y" path="res://inventory/Bode/fiveSlotInventory.tres" id="2_2ue4q"]
 [ext_resource type="Resource" uid="uid://bfh2eipoliy7l" path="res://inventory/ArmorInventory.tres" id="3_2ue4q"]
-[ext_resource type="Resource" uid="uid://btnl4h12beget" path="res://inventory/twoHandInventory.tres" id="4_4fwf8"]
+[ext_resource type="Resource" uid="uid://btnl4h12beget" path="res://inventory/Spyros/twoHandInventory.tres" id="4_4fwf8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lulpo"]
 atlas = ExtResource("1_a8v3n")

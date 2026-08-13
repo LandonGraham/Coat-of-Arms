@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Techniques" format=3 uid="uid://bcrnn4ofp85r2"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_ijm56"]
+
+[resource]
+script = ExtResource("1_ijm56")
+name = "Strike"
+damage_type = 2
+noOfHandsToUse = 1
+statToBeUsed = 1
+attackRange = 1
+minAttackRange = 1
+metadata/_custom_type_script = "uid://p345d64kh2nk"

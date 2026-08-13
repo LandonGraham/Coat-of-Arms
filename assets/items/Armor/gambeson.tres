@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Armor" format=3 uid="uid://pt1s5e6fw17m"]
+
+[ext_resource type="Script" uid="uid://yw482au00pce" path="res://scripts/armor.gd" id="1_xue2n"]
+
+[resource]
+script = ExtResource("1_xue2n")
+category = 1
+skillRequirement = 5
+durability = 30
+currentDurability = 30
+canBeTop = true
+canBeBottom = true
+slashResistance = 2
+strikeResistance = 2
+magicResistance = 2
+name = "Gambeson"
+weight = 1
+metadata/_custom_type_script = "uid://yw482au00pce"

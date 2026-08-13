@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bet335enqysgv"]
+
+[ext_resource type="Texture2D" uid="uid://bhfyipkk571jy" path="res://assets/sprites/UI/PortraitDisplayBackground.png" id="1_qpeq3"]
+[ext_resource type="Texture2D" uid="uid://pm8vghm1quwx" path="res://assets/sprites/UI/PortraitDisplayLower.png" id="2_dxa21"]
+[ext_resource type="Texture2D" uid="uid://ctwija2hfga7x" path="res://assets/sprites/UI/PortraitDisplayUpper.png" id="3_8lvpk"]
+
+[sub_resource type="Theme" id="Theme_qpeq3"]
+default_font_size = 48
+
+[node name="PortraitDisplay" type="Node2D" unique_id=1511676354]
+
+[node name="Background" type="TextureRect" parent="." unique_id=1125043393]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_qpeq3")
+
+[node name="Upper" type="TextureRect" parent="." unique_id=1103610241]
+offset_right = 734.0
+offset_bottom = 445.0
+texture = ExtResource("3_8lvpk")
+
+[node name="Portrait" type="TextureRect" parent="." unique_id=13293815]
+offset_left = 1.0
+offset_top = -67.0
+offset_right = 735.0
+offset_bottom = 445.0
+
+[node name="Lower" type="TextureRect" parent="." unique_id=1235736757]
+offset_right = 734.0
+offset_bottom = 445.0
+texture = ExtResource("2_dxa21")
+
+[node name="HP Label" type="Label" parent="." unique_id=788806617]
+offset_left = 445.0
+offset_top = 222.0
+offset_right = 524.0
+offset_bottom = 289.0
+theme = SubResource("Theme_qpeq3")
+theme_override_colors/font_color = Color(0, 0, 0, 0.5882353)
+text = "HP:"
+
+[node name="Name Label" type="Label" parent="." unique_id=234194222]
+offset_left = 444.0
+offset_top = 107.0
+offset_right = 523.0
+offset_bottom = 174.0
+theme = SubResource("Theme_qpeq3")
+theme_override_colors/font_color = Color(0, 0, 0, 0.5882353)

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://cnyr5drwd4yhy"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_obm3l"]
+[ext_resource type="Resource" uid="uid://bcrnn4ofp85r2" path="res://assets/items/Techniques/strike.tres" id="2_h4kx8"]
+[ext_resource type="Script" uid="uid://ucficahter2k" path="res://scripts/weapon.gd" id="2_pjpdr"]
+
+[resource]
+script = ExtResource("2_pjpdr")
+listOfTecnhiques = Array[ExtResource("1_obm3l")]([ExtResource("2_h4kx8")])
+handsMinimum = 1
+handsMaximum = 2
+baseDamage = 3
+pierceMultiplier = 0.25
+slashMultiplier = 0.25
+strikeMultiplier = 1.25
+name = "Club"
+weight = 3
+metadata/_custom_type_script = "uid://ucficahter2k"

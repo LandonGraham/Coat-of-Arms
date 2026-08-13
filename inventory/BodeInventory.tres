@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Inv" format=3 uid="uid://bie74tt2gue55"]
+
+[ext_resource type="Script" uid="uid://bffwhx1ybwy4h" path="res://scripts/invetoryItem.gd" id="1_whgfw"]
+[ext_resource type="Script" uid="uid://bsgmo8td8ykdu" path="res://scripts/inventory.gd" id="2_a3jhl"]
+
+[resource]
+script = ExtResource("2_a3jhl")
+items = Array[ExtResource("1_whgfw")]([null, null, null, null, null])
+metadata/_custom_type_script = "uid://bsgmo8td8ykdu"

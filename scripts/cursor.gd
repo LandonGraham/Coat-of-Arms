@@ -14,7 +14,8 @@ var selected_target: Character = null
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ui_manager: CanvasLayer = $"../../../UI Manager"
-@onready var combat_manager: Control = $"../../../CombatManager"
+@onready var combat_manager: Node2D = $"../../../CombatManager"
+
 
 @onready var movement_tile_layer: Node2D = $"../MovementTileLayer"
 @export var camera_2d: Camera2D
@@ -50,6 +51,14 @@ func movetoPosition(pos: Vector2, duration: float):
 
 	sprite_node_pos_tween = create_tween()
 	sprite_node_pos_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	
+	sprite_node_pos_tween.tween_property(
+		self,
+		"global_position",
+		pos,
+		duration
+	).set_trans(Tween.TRANS_SINE)
+	
 	sprite_node_pos_tween.tween_property(
 		$AnimatedSprite2D,
 		"global_position",
@@ -57,7 +66,7 @@ func movetoPosition(pos: Vector2, duration: float):
 		duration
 	).set_trans(Tween.TRANS_SINE)
 	
-	global_position = pos
+	#global_position = pos
 
 	# Notify the camera after every movement.
 	camera_2d.cursor_moved(global_position)
@@ -109,7 +118,6 @@ func scrollBetweenPotentialAttackers(unit: Character, dir: String):
 				currentTargetIndex = targets.size()-1
 				
 		movetoPosition(targets[currentTargetIndex].global_position, 0.06)
-		print(global_position)
 		findCharacterPortrait(targets[currentTargetIndex].global_position)
 	
 	for tile in unit.validAttackPoints:
@@ -260,7 +268,7 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("inputLeftA"):
 				scrollBetweenPotentialAttackers(selected_character, "retreat")
 				
-			
+		
 		state.invMenu:
 			
 			if Input.is_action_just_pressed("backKey"):

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ArmorInventory" format=3 uid="uid://dj1pau7a028fj"]
+
+[ext_resource type="Script" uid="uid://c3e76v40g1y2m" path="res://scripts/armorSlots.gd" id="1_5bwg7"]
+[ext_resource type="Script" uid="uid://dbhhiuj3gjmck" path="res://scripts/ArmorInventory.gd" id="2_d6n3c"]
+
+[resource]
+script = ExtResource("2_d6n3c")
+metadata/_custom_type_script = "uid://dbhhiuj3gjmck"

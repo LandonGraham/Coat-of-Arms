@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dnyj8wosq8576"]
+
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="1_42bkf"]
+[ext_resource type="Resource" uid="uid://chgw6qwjtrc3k" path="res://assets/items/Techniques/cut.tres" id="2_8t8fd"]
+[ext_resource type="Resource" uid="uid://duggbjsq4e616" path="res://assets/items/Techniques/thrust.tres" id="3_e75w4"]
+[ext_resource type="Script" uid="uid://ucficahter2k" path="res://scripts/weapon.gd" id="4_gmon6"]
+
+[resource]
+script = ExtResource("4_gmon6")
+listOfTecnhiques = Array[ExtResource("1_42bkf")]([ExtResource("2_8t8fd"), ExtResource("3_e75w4")])
+handsMinimum = 1
+handsMaximum = 1
+baseDamage = 2
+pierceMultiplier = 1.5
+slashMultiplier = 0.75
+strikeMultiplier = 0.25
+name = "Rapier"
+weight = 1
+metadata/_custom_type_script = "uid://ucficahter2k"

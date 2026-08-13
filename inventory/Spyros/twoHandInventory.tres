@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="HandSlots" format=3 uid="uid://btnl4h12beget"]
+
+[ext_resource type="Script" uid="uid://ucficahter2k" path="res://scripts/weapon.gd" id="1_t1isq"]
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="2_ydym6"]
+[ext_resource type="Script" uid="uid://vn2ivi11ouvy" path="res://scripts/handSlots.gd" id="3_l3xj0"]
+
+[sub_resource type="Resource" id="Resource_u051i"]
+script = ExtResource("2_ydym6")
+name = "Cut"
+damage_type = 1
+noOfHandsToUse = 1
+statToBeUsed = 1
+attackRange = 1
+minAttackRange = 1
+metadata/_custom_type_script = "uid://p345d64kh2nk"
+
+[sub_resource type="Resource" id="Resource_vmrhi"]
+script = ExtResource("2_ydym6")
+name = "Thrust"
+skillRequirement = 10
+noOfHandsToUse = 1
+statToBeUsed = 1
+attackRange = 1
+minAttackRange = 1
+metadata/_custom_type_script = "uid://p345d64kh2nk"
+
+[sub_resource type="Resource" id="Resource_ovkdh"]
+script = ExtResource("1_t1isq")
+listOfTecnhiques = Array[ExtResource("2_ydym6")]([SubResource("Resource_u051i"), SubResource("Resource_vmrhi")])
+handsMinimum = 1
+handsMaximum = 1
+baseDamage = 2
+pierceMultiplier = 1.5
+slashMultiplier = 0.75
+strikeMultiplier = 0.25
+name = "Rapier"
+weight = 1
+metadata/_custom_type_script = "uid://ucficahter2k"
+
+[resource]
+script = ExtResource("3_l3xj0")
+hand_slots = Array[ExtResource("1_t1isq")]([SubResource("Resource_ovkdh"), null])
+metadata/_custom_type_script = "uid://vn2ivi11ouvy"

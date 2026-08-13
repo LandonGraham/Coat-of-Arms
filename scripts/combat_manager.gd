@@ -1,8 +1,9 @@
-extends Control
+extends Node2D
 
 var combatantOne: Character
 var combatantTwo: Character
 
+@onready var cursor: Node2D = $"../SubViewportContainer/SubViewport/Cursor"
 
 enum state{selectTechniques, inactive}
 
@@ -36,9 +37,6 @@ func getCombatantOneNumberOfAttacks() -> int:
 		return 1 + (combatantOneAgility-combatantTwoAgility) /8
 	
 func chooseTechniques(unit: Character):
-	
-	combatantOne.setStatValue("Agility", 24)
-	combatantTwo.setStatValue("Agility", 4)
 	
 	print("Choose from the following techniques:")
 	var techniques = unit.getEquippedWeapon().getListOfAllTechniques()

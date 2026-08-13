@@ -1,6 +1,6 @@
 extends invItem
 
-class_name armor
+class_name Armor
 
 enum armorType{light, medium, heavy}
 enum armorCategory{helmet, torso, legs, gauntlets}
@@ -9,6 +9,7 @@ enum armorCategory{helmet, torso, legs, gauntlets}
 @export var category: armorCategory
 @export var skillRequirement: int
 @export var durability: int
+@export var currentDurability: int
 
 @export var canBeTop: bool
 @export var canBeBottom: bool

@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 #-------functional variabels--
 
+@export var isPlayable: bool = true
+
 const tile_size: Vector2 = Vector2(16, 16) #const determining how big, in pixels, a tile is (used for moving 16 pixels with the tween function)
 var sprite_node_pos_tween: Tween
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -22,11 +24,13 @@ var positionWhenSelected: Vector2
 
 #--------Variables-----------
 
+#------Inventory variables-------
+
 @export var inv: Inv
 @export var armorInv: ArmorInventory
 @export var handInv: HandSlots
 
-@export var isPlayable: bool = true
+#-------Character info-----------
 
 @export var firstName: String
 @export var fullName: String
@@ -47,7 +51,30 @@ var agility = Stat.new("Agility", 12, 50)
 var mind = Stat.new("Mind", 1, 50)
 var luck = Stat.new("Luck", 1, 50)
 
+#------weapon skills--------
+
+var swords = Skill.new("Swords", 1, 0)
+var spears = Skill.new("Spears", 1, 0)
+var axes = Skill.new("Axes", 1, 0)
+var bludgeons = Skill.new("Bludgeons", 1, 0)
+var daggers = Skill.new("Daggers", 1, 0)
+var bows = Skill.new("Bows", 1, 0)
+var firearms = Skill.new("Firearms", 1, 0)
+var unarmed = Skill.new("Unarmed", 1, 0)
+
+#-----character skills-------
+
+var armor = Skill.new("Armor", 1, 0)
+var shields = Skill.new("Shields", 1, 0)
+var riding = Skill.new("Riding", 1, 0)
+var medicine = Skill.new("Medicine", 1, 0)
+var grappling = Skill.new("Grappling", 1, 0)
+var stealth = Skill.new("Stealth", 1, 0)
+
 #----functions------
+
+func getFirstName()-> String:
+	return firstName
 
 func calculateWeight():
 	var returnWeight: int = 0
@@ -106,9 +133,9 @@ func getEquippedWeapon() -> Weapon:
 		
 func calculateMovement():
 	if calculateAgility() == 0:
-		return 4
+		return 3
 	else:
-		return 4 + (calculateAgility()/8)
+		return 3 + (calculateAgility()/8)
 
 func getValidMovementPoints():
 
@@ -174,28 +201,32 @@ func getValidMovementPoints():
 	
 func getAttackTiles():
 	validAttackPoints.clear()
-	var attackSet : Dictionary = {}
-
-	var minRange = handInv.getMinAttackRange()
-	var maxRange = handInv.getMaxAttackRange()
-
-	var tiles : Array[Vector2] = []
-
-	if minRange == maxRange:
-		tiles.append_array(getTilesAtDistance(maxRange))
-	else:
-		for distance in range(minRange, maxRange + 1):
-			tiles.append_array(getTilesAtDistance(distance))
-	for moveTile in validPoints:
-		for offset in tiles:
-			attackSet[moveTile + offset] = true
-			
-	for moveTile in validPoints:
-		if attackSet.has(moveTile):
-			attackSet.erase(moveTile)
 	
-	for point in attackSet.keys():
-		validAttackPoints.append(point)
+	if handInv.hand_slots[0] != null or handInv.hand_slots[1] != null:
+		var attackSet : Dictionary = {}
+
+		var minRange = handInv.getMinAttackRange()
+		var maxRange = handInv.getMaxAttackRange()
+
+		var tiles : Array[Vector2] = []
+
+		if minRange == maxRange:
+			tiles.append_array(getTilesAtDistance(maxRange))
+		else:
+			for distance in range(minRange, maxRange + 1):
+				tiles.append_array(getTilesAtDistance(distance))
+		for moveTile in validPoints:
+			for offset in tiles:
+				attackSet[moveTile + offset] = true
+				
+		for moveTile in validPoints:
+			if attackSet.has(moveTile):
+				attackSet.erase(moveTile)
+		
+		for point in attackSet.keys():
+			validAttackPoints.append(point)
+	else:
+		pass
 	
 func getTilesAtDistance(distance : int) -> Array[Vector2]:
 	var tiles : Array[Vector2] = []
@@ -210,62 +241,36 @@ func getTilesAtDistance(distance : int) -> Array[Vector2]:
 			tiles.append(Vector2(x * 16, -y * 16))
 
 	return tiles
-#func getValidMovementPoints(): #function that determines which tiles are valid movement tiles for a character
-	#validAttackPoints = []
-	#validPoints = []
-	#var validx: Array[int]
-	#var validy: Array[int]
-	#var weaponRange = calculateWeaponRange()
-	#var moveRange = calculateMovement()
-	#var totalRange = moveRange + weaponRange
-#
-	#for i in range(totalRange*-1, totalRange+1):
-		#validx.append(i)
-		#validy.append(i)
-#
-	#for i in validx.size(): #Function logic: Creates an array containing all points (-x, -y) to (x, y) where x and y are the total movement speed of the character. If a character has a movement speed of 3, the array contains -3,-3 to 3,3. Then, it iterates through each element and sums the absolute value of the x and y. If said sum is equal to or less than the total movement speed, the x,y pair is a valid tile.
-		#for j in validy.size():
-			#if abs(validx[i])+abs(validy[j]) <= moveRange:
-				##print(validx[i], ",", validy[j])
-				#var validPoint: Vector2 = Vector2(validx[i]*16, validy[j]*16)
-				#validPoints.append(validPoint)
-			#elif abs(validx[i])+abs(validy[j]) <= totalRange:
-				#var validAttackPoint: Vector2 = Vector2(validx[i]*16, validy[j]*16)
-				#validAttackPoints.append(validAttackPoint)
-	#createMovementTiles(validPoints, true)
-	#createMovementTiles(validAttackPoints, false)
 
-#func createAttackTilesOnly():
-	#var weaponRange = calculateWeaponRange()
-	#var validx: Array[int]
-	#var validy: Array[int]
-	#for i in weaponRange:
-		#validx.append(i)
-		#validy.append(i)
 
 func getStandingAttackTiles():
 	validAttackPoints.clear()
-	var attackSet: Dictionary = {}
-	var minRange = handInv.getMinAttackRange()
-	var maxRange = handInv.getMaxAttackRange()
 	
-	var tiles: Array[Vector2] = []
+	if handInv.hand_slots[0] != null or handInv.hand_slots[1] != null:
 	
-	if minRange == maxRange:
-		tiles.append_array(getTilesAtDistance(maxRange))
+		var attackSet: Dictionary = {}
+		var minRange = handInv.getMinAttackRange()
+		var maxRange = handInv.getMaxAttackRange()
+		
+		var tiles: Array[Vector2] = []
+		
+		if minRange == maxRange:
+			tiles.append_array(getTilesAtDistance(maxRange))
+		else:
+			for distance in range(minRange, maxRange + 1):
+				tiles.append_array(getTilesAtDistance(distance))
+		
+		# Add all attack tiles without excluding movement tiles
+		for offset in tiles:
+			attackSet[offset] = true
+		
+		for point in attackSet.keys():
+			validAttackPoints.append(point)
+	
+		# Create only the attack tiles (red)
+		createMovementTiles(validAttackPoints, false)
 	else:
-		for distance in range(minRange, maxRange + 1):
-			tiles.append_array(getTilesAtDistance(distance))
-	
-	# Add all attack tiles without excluding movement tiles
-	for offset in tiles:
-		attackSet[offset] = true
-	
-	for point in attackSet.keys():
-		validAttackPoints.append(point)
-	
-	# Create only the attack tiles (red)
-	createMovementTiles(validAttackPoints, false)
+		pass
 
 func createMovementTiles(validPoints: PackedVector2Array, flag: bool): #Function logic: Creates attack and movement tiles using a list of valid tiles and a flag. If the flag is true, the function uses the provided array to create movement tiles. If the flag is false, it uses the provided array to create attack tiles.
 	for item in validPoints:
@@ -313,7 +318,6 @@ func updateState(newState: State):
 		State.selected:
 			
 			if newState == State.idle:
-				print("test1")
 				var tween = create_tween()
 				destroyMovementTiles()
 				tween.tween_property(self, "position", positionWhenSelected, .08)

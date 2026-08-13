@@ -11,9 +11,9 @@ enum damageType{pierce, slash, strike, magic}
 @export var handsMaximum: int
 @export var baseDamage: int
 
-@export var pierceMultiplier: int
-@export var slashMultiplier: int
-@export var strikeMultiplier: int
+@export var pierceMultiplier: float
+@export var slashMultiplier: float
+@export var strikeMultiplier: float
 
 func getMinRange():
 	var lowest: int

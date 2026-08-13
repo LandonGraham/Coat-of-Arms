@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Armor" format=3 uid="uid://blk0stonyv6pu"]
+
+[ext_resource type="Script" uid="uid://yw482au00pce" path="res://scripts/armor.gd" id="1_cw8bb"]
+
+[resource]
+script = ExtResource("1_cw8bb")
+armor_type = 1
+category = 1
+skillRequirement = 15
+durability = 40
+currentDurability = 40
+canBeTop = true
+pierceResistance = 3
+slashResistance = 4
+strikeResistance = 2
+name = "Coat of Plates"
+weight = 4
+metadata/_custom_type_script = "uid://yw482au00pce"

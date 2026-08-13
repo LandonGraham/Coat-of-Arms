@@ -8,12 +8,31 @@
 [ext_resource type="PackedScene" uid="uid://cssgjn88y04ht" path="res://scenes/cursor.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b8txuo4yo3kb1" path="res://scenes/mapTile.tscn" id="3_vtaks"]
 [ext_resource type="Texture2D" uid="uid://bjpcyjblrup4u" path="res://assets/sprites/UI/ForestPlaceholder.png" id="4_kvpfn"]
-[ext_resource type="Texture2D" uid="uid://c8p1ylxcj04r0" path="res://assets/sprites/portraits/test.png" id="4_p57ef"]
 [ext_resource type="Script" uid="uid://cr1jvm2g7bj56" path="res://scripts/ui_manager.gd" id="5_iywne"]
 [ext_resource type="Texture2D" uid="uid://dp1mgdr38myy3" path="res://assets/sprites/UI/StairPlaceholder.png" id="5_kvpfn"]
-[ext_resource type="Texture2D" uid="uid://glav66tublnf" path="res://assets/sprites/portraits/Zarislov.png" id="5_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://cb33pufochnx3" path="res://assets/sprites/UI/Selector.png" id="8_gee14"]
+[ext_resource type="Texture2D" uid="uid://cjt8f6m3i1tlt" path="res://assets/sprites/UI/PortraitDisplayPortraits/Spyros.png" id="9_ir15t"]
+[ext_resource type="Texture2D" uid="uid://u1ppjpp7vp4j" path="res://assets/sprites/UI/PortraitDisplayPortraits/Bode.png" id="10_ca42v"]
+[ext_resource type="Resource" uid="uid://cxljf0ipsmy78" path="res://inventory/Spyros/SpyrosInventory.tres" id="10_qouja"]
+[ext_resource type="Texture2D" uid="uid://dtpiv6jug3jkb" path="res://assets/sprites/UI/PortraitDisplayPortraits/Zarislov.png" id="11_ssvqc"]
+[ext_resource type="Resource" uid="uid://dj1pau7a028fj" path="res://inventory/Spyros/SpyrosArmorInventory.tres" id="11_wljb1"]
+[ext_resource type="Texture2D" uid="uid://bx6saua834dur" path="res://assets/sprites/UI/PortraitDisplayPortraits/Elsbeth.png" id="12_264po"]
+[ext_resource type="PackedScene" uid="uid://bet335enqysgv" path="res://scenes/portrait_display.tscn" id="13_ir15t"]
+[ext_resource type="Script" uid="uid://bffwhx1ybwy4h" path="res://scripts/invetoryItem.gd" id="13_v2yb1"]
+[ext_resource type="Script" uid="uid://bsgmo8td8ykdu" path="res://scripts/inventory.gd" id="14_js0lu"]
 [ext_resource type="PackedScene" uid="uid://c83w0kwf2t6ua" path="res://scenes/combat_manager.tscn" id="14_trtic"]
+[ext_resource type="Script" uid="uid://c3e76v40g1y2m" path="res://scripts/armorSlots.gd" id="15_gxtfn"]
+[ext_resource type="Script" uid="uid://bugv28l6wq4i" path="res://scripts/combat_manager.gd" id="16_ca42v"]
+[ext_resource type="Resource" uid="uid://pt1s5e6fw17m" path="res://assets/items/Armor/gambeson.tres" id="16_twgab"]
+[ext_resource type="Resource" uid="uid://c8nvgfqvl7bud" path="res://inventory/items/breatplate.tres" id="17_02fa5"]
+[ext_resource type="Resource" uid="uid://5qvnwcovv2xc" path="res://inventory/items/leather_gloves.tres" id="18_nepv3"]
+[ext_resource type="Resource" uid="uid://3mftn22iekah" path="res://inventory/items/hose.tres" id="19_7025r"]
+[ext_resource type="Script" uid="uid://dbhhiuj3gjmck" path="res://scripts/ArmorInventory.gd" id="20_m4url"]
+[ext_resource type="Script" uid="uid://ucficahter2k" path="res://scripts/weapon.gd" id="21_8ool0"]
+[ext_resource type="Script" uid="uid://vn2ivi11ouvy" path="res://scripts/handSlots.gd" id="22_pr1ej"]
+[ext_resource type="Resource" uid="uid://cnyr5drwd4yhy" path="res://assets/items/Weapons/club.tres" id="22_v2yb1"]
+[ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="24_05nbr"]
+[ext_resource type="Resource" uid="uid://cniprrutd1v5y" path="res://assets/items/Weapons/longbowTest.tres" id="27_js0lu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -479,7 +498,103 @@ texture = ExtResource("2_yqjtg")
 [sub_resource type="TileSet" id="TileSet_lbhrr"]
 sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
-[sub_resource type="Animation" id="Animation_p57ef"]
+[sub_resource type="Resource" id="Resource_0sl42"]
+script = ExtResource("14_js0lu")
+items = Array[ExtResource("13_v2yb1")]([null, null, null, null, null])
+metadata/_custom_type_script = "uid://bsgmo8td8ykdu"
+
+[sub_resource type="Resource" id="Resource_or331"]
+script = ExtResource("15_gxtfn")
+bottomLayer = ExtResource("16_twgab")
+metadata/_custom_type_script = "uid://c3e76v40g1y2m"
+
+[sub_resource type="Resource" id="Resource_uhox0"]
+script = ExtResource("15_gxtfn")
+upperLayer = ExtResource("17_02fa5")
+metadata/_custom_type_script = "uid://c3e76v40g1y2m"
+
+[sub_resource type="Resource" id="Resource_7m10i"]
+script = ExtResource("15_gxtfn")
+bottomLayer = ExtResource("18_nepv3")
+metadata/_custom_type_script = "uid://c3e76v40g1y2m"
+
+[sub_resource type="Resource" id="Resource_7qt32"]
+script = ExtResource("15_gxtfn")
+bottomLayer = ExtResource("19_7025r")
+metadata/_custom_type_script = "uid://c3e76v40g1y2m"
+
+[sub_resource type="Resource" id="Resource_oaba0"]
+script = ExtResource("20_m4url")
+armorInventory = Array[ExtResource("15_gxtfn")]([SubResource("Resource_or331"), SubResource("Resource_uhox0"), SubResource("Resource_7m10i"), SubResource("Resource_7qt32")])
+metadata/_custom_type_script = "uid://dbhhiuj3gjmck"
+
+[sub_resource type="Resource" id="Resource_458eo"]
+script = ExtResource("22_pr1ej")
+hand_slots = Array[ExtResource("21_8ool0")]([ExtResource("22_v2yb1"), null])
+metadata/_custom_type_script = "uid://vn2ivi11ouvy"
+
+[sub_resource type="Resource" id="Resource_h3rex"]
+script = ExtResource("14_js0lu")
+metadata/_custom_type_script = "uid://bsgmo8td8ykdu"
+
+[sub_resource type="Resource" id="Resource_fedci"]
+script = ExtResource("20_m4url")
+armorInventory = Array[ExtResource("15_gxtfn")]([SubResource("Resource_or331"), SubResource("Resource_uhox0"), SubResource("Resource_7m10i"), SubResource("Resource_7qt32")])
+metadata/_custom_type_script = "uid://dbhhiuj3gjmck"
+
+[sub_resource type="Resource" id="Resource_u051i"]
+script = ExtResource("24_05nbr")
+name = "Cut"
+damage_type = 1
+noOfHandsToUse = 1
+statToBeUsed = 1
+attackRange = 1
+minAttackRange = 1
+metadata/_custom_type_script = "uid://p345d64kh2nk"
+
+[sub_resource type="Resource" id="Resource_vmrhi"]
+script = ExtResource("24_05nbr")
+name = "Thrust"
+skillRequirement = 10
+noOfHandsToUse = 1
+statToBeUsed = 1
+attackRange = 1
+minAttackRange = 1
+metadata/_custom_type_script = "uid://p345d64kh2nk"
+
+[sub_resource type="Resource" id="Resource_ovkdh"]
+script = ExtResource("21_8ool0")
+listOfTecnhiques = Array[ExtResource("24_05nbr")]([SubResource("Resource_u051i"), SubResource("Resource_vmrhi")])
+handsMinimum = 1
+handsMaximum = 1
+baseDamage = 2
+pierceMultiplier = 1.5
+slashMultiplier = 0.75
+strikeMultiplier = 0.25
+name = "Rapier"
+weight = 1
+metadata/_custom_type_script = "uid://ucficahter2k"
+
+[sub_resource type="Resource" id="Resource_8qswn"]
+script = ExtResource("22_pr1ej")
+hand_slots = Array[ExtResource("21_8ool0")]([SubResource("Resource_ovkdh"), null])
+metadata/_custom_type_script = "uid://vn2ivi11ouvy"
+
+[sub_resource type="Resource" id="Resource_rm0al"]
+script = ExtResource("14_js0lu")
+metadata/_custom_type_script = "uid://bsgmo8td8ykdu"
+
+[sub_resource type="Resource" id="Resource_i4re6"]
+script = ExtResource("20_m4url")
+armorInventory = Array[ExtResource("15_gxtfn")]([SubResource("Resource_or331"), SubResource("Resource_uhox0"), SubResource("Resource_7m10i"), SubResource("Resource_7qt32")])
+metadata/_custom_type_script = "uid://dbhhiuj3gjmck"
+
+[sub_resource type="Resource" id="Resource_pf7vy"]
+script = ExtResource("22_pr1ej")
+hand_slots = Array[ExtResource("21_8ool0")]([ExtResource("27_js0lu"), null])
+metadata/_custom_type_script = "uid://vn2ivi11ouvy"
+
+[sub_resource type="Animation" id="Animation_ir15t"]
 resource_name = "FadeIn"
 length = 0.1
 tracks/0/type = "value"
@@ -489,13 +604,13 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(-0.033333335, 0.1),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_u5sy4"]
+[sub_resource type="Animation" id="Animation_ca42v"]
 resource_name = "FadeOut"
 length = 0.1
 tracks/0/type = "value"
@@ -505,13 +620,13 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(-0.033333335, 0.100000024),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_gee14"]
+[sub_resource type="Animation" id="Animation_rysoc"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -523,14 +638,14 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0tnpc"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ssvqc"]
 _data = {
-&"FadeIn": SubResource("Animation_p57ef"),
-&"FadeOut": SubResource("Animation_u5sy4"),
-&"RESET": SubResource("Animation_gee14")
+&"FadeIn": SubResource("Animation_ir15t"),
+&"FadeOut": SubResource("Animation_ca42v"),
+&"RESET": SubResource("Animation_rysoc")
 }
 
 [node name="Game" type="Node2D" unique_id=1396642030]
@@ -577,23 +692,40 @@ movementReq = 3
 
 [node name="Units" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1603032921]
 
-[node name="Player Test" parent="SubViewportContainer/SubViewport/Units" unique_id=1580550412 instance=ExtResource("1_uwrxv")]
+[node name="Spyros" parent="SubViewportContainer/SubViewport/Units" unique_id=1580550412 instance=ExtResource("1_uwrxv")]
 position = Vector2(168, 88)
-portrait = ExtResource("4_p57ef")
+portrait = ExtResource("9_ir15t")
+inv = ExtResource("10_qouja")
+armorInv = ExtResource("11_wljb1")
+firstName = "Spyros"
+fullName = "Spyros Kokontos"
 
 [node name="Enemy Units" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=2094862470]
 
-[node name="Enemy Test" parent="SubViewportContainer/SubViewport/Enemy Units" unique_id=870714919 instance=ExtResource("1_uwrxv")]
+[node name="Bode" parent="SubViewportContainer/SubViewport/Enemy Units" unique_id=870714919 instance=ExtResource("1_uwrxv")]
 position = Vector2(120, 56)
-portrait = ExtResource("5_u5sy4")
+portrait = ExtResource("10_ca42v")
+inv = SubResource("Resource_0sl42")
+armorInv = SubResource("Resource_oaba0")
+handInv = SubResource("Resource_458eo")
+firstName = "Bode"
 
-[node name="Enemy Test2" parent="SubViewportContainer/SubViewport/Enemy Units" unique_id=1042353227 instance=ExtResource("1_uwrxv")]
+[node name="Zarislov" parent="SubViewportContainer/SubViewport/Enemy Units" unique_id=1042353227 instance=ExtResource("1_uwrxv")]
 position = Vector2(136, 40)
-portrait = ExtResource("5_u5sy4")
+portrait = ExtResource("11_ssvqc")
+inv = SubResource("Resource_h3rex")
+armorInv = SubResource("Resource_fedci")
+handInv = SubResource("Resource_8qswn")
+firstName = "Zarislov"
+fullName = "Zarislov von Ducon"
 
-[node name="Enemy Test3" parent="SubViewportContainer/SubViewport/Enemy Units" unique_id=1025771636 instance=ExtResource("1_uwrxv")]
+[node name="Elsbeth" parent="SubViewportContainer/SubViewport/Enemy Units" unique_id=1025771636 instance=ExtResource("1_uwrxv")]
 position = Vector2(152, 56)
-portrait = ExtResource("5_u5sy4")
+portrait = ExtResource("12_264po")
+inv = SubResource("Resource_rm0al")
+armorInv = SubResource("Resource_i4re6")
+handInv = SubResource("Resource_pf7vy")
+firstName = "Elsbeth"
 
 [node name="Cursor" parent="SubViewportContainer/SubViewport" unique_id=1726230699 node_paths=PackedStringArray("selectable_units", "hoverable_units", "camera_2d") instance=ExtResource("3_lbhrr")]
 position = Vector2(152, 72)
@@ -604,13 +736,11 @@ camera_2d = NodePath("../Camera2D")
 [node name="UI Manager" type="CanvasLayer" parent="." unique_id=632880674]
 script = ExtResource("5_iywne")
 
-[node name="Portrait Display" type="Sprite2D" parent="UI Manager" unique_id=999100389]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(265, 770)
-texture = ExtResource("4_p57ef")
+[node name="PortraitDisplay" parent="UI Manager" unique_id=1511676354 instance=ExtResource("13_ir15t")]
+position = Vector2(41, 611)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UI Manager/Portrait Display" unique_id=1711827047]
-libraries/ = SubResource("AnimationLibrary_0tnpc")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI Manager/PortraitDisplay" unique_id=1180718487]
+libraries/ = SubResource("AnimationLibrary_ssvqc")
 
 [node name="Selector" type="Sprite2D" parent="UI Manager" unique_id=1583836308]
 position = Vector2(1581, 100)
@@ -620,3 +750,4 @@ texture = ExtResource("8_gee14")
 [node name="Action Display" type="Node2D" parent="UI Manager" unique_id=2049609178]
 
 [node name="CombatManager" parent="." unique_id=10987141 instance=ExtResource("14_trtic")]
+script = ExtResource("16_ca42v")

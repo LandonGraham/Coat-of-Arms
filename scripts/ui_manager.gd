@@ -13,7 +13,7 @@ var selectorInitPosition: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$"Portrait Display".visible = false
+	$"PortraitDisplay".visible = false
 	$"Selector".visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -66,6 +66,16 @@ func determineAttackAction(unit: Character) -> bool:
 		return false
 	else:
 		return true
+		
+func determineTalkAction(unit: Character) -> bool:
+	return false
+
+func determineGrappleAction(unit: Character) -> bool:
+	if unit.grappling.getValue() >= 10:
+		return true
+	else:
+		return false
+
 
 func getThreatenedUnits(unit: Character) -> Array[Node]:
 	var enemyUnitsArray: Array[Node] = enemy_units.get_children()
@@ -92,12 +102,20 @@ func openActionMenu(unit: Character):
 	testArray.clear()
 
 	testArray.append("Wait")
+	
+	testArray.push_front("Items")
+
+	if determineGrappleAction(unit) and determineAttackAction(unit):
+		testArray.push_front("Grapple")
 
 	if determineAttackAction(unit):
 		testArray.push_front("Attack")
 		
-	testArray.push_front("Talk")
-	testArray.push_front("Items")
+	
+	if determineTalkAction(unit):
+		testArray.push_front("Talk")
+
+	
 		
 	var positionMod = 0
 	if testArray.is_empty() != true:
@@ -136,20 +154,21 @@ func scrollSelectorActionMenu(toggle: bool):
 			selectorPosition -= 1
 			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+70, 0.1)
 
-			
-	
 func getSelection():
 	var selectedAction = actionNodes[selectorPosition].label.text
 	return selectedAction
-			
 		
 func displayPortrait(unit: Character):
 	if unit != null:
-		$"Portrait Display".texture = unit.getPortrait()
-		$"Portrait Display".visible = true
-		$"Portrait Display/AnimationPlayer".play("FadeIn")
+		$"PortraitDisplay/Portrait".texture = unit.getPortrait()
+		$"PortraitDisplay".visible = true
+		$"PortraitDisplay/AnimationPlayer".play("FadeIn")
+		$"PortraitDisplay/HP Label".text = "HP: " + str(unit.fortitude.getValue())
+		$"PortraitDisplay/Name Label".text = unit.getFirstName()
+		pass
 func removePortrait():
-	$"Portrait Display/AnimationPlayer".play("FadeOut")
-	await $"Portrait Display/AnimationPlayer".animation_finished
-	$"Portrait Display".texture = null
-	$"Portrait Display".visible = false
+	$"PortraitDisplay/AnimationPlayer".play("FadeOut")
+	await $"PortraitDisplay/AnimationPlayer".animation_finished
+	$"PortraitDisplay/Portrait".texture = null
+	$"PortraitDisplay".visible = false
+	pass

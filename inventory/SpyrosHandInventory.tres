@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="HandSlots" format=3 uid="uid://d4ktoefsgshe8"]
+
+[ext_resource type="Script" uid="uid://ucficahter2k" path="res://scripts/weapon.gd" id="1_tlwcs"]
+[ext_resource type="Script" uid="uid://vn2ivi11ouvy" path="res://scripts/handSlots.gd" id="2_bb883"]
+
+[resource]
+script = ExtResource("2_bb883")
+hand_slots = Array[ExtResource("1_tlwcs")]([null, null])
+metadata/_custom_type_script = "uid://vn2ivi11ouvy"
