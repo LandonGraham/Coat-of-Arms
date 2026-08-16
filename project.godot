@@ -24,7 +24,7 @@ Global="*uid://ccl8cxxp5rwhu"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [input]
 
@@ -84,5 +84,5 @@ Input2={
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
+textures/canvas_textures/default_texture_filter=3
 rendering_device/driver.windows="d3d12"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjt8f6m3i1tlt"
-path="res://.godot/imported/Spyros.png-559247b256f005f0a8b52c57a7700dee.ctex"
+uid="uid://bqsmdxdv6r53c"
+path="res://.godot/imported/Test.png-e1bab82f4196f4237fe4108bcaa4349a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI/PortraitDisplayPortraits/Spyros.png"
-dest_files=["res://.godot/imported/Spyros.png-559247b256f005f0a8b52c57a7700dee.ctex"]
+source_file="res://assets/sprites/UI/PortraitDisplayPortraits/Test.png"
+dest_files=["res://.godot/imported/Test.png-e1bab82f4196f4237fe4108bcaa4349a.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
