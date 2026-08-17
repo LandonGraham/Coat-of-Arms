@@ -17,12 +17,16 @@ var is_dialogue_active: bool = false
 var speaker_one: Character
 var speaker_two: Character
 
+enum state{inactive, reading, done_reading, waiting_for_input}
+var current_state: state
+
 func _ready() -> void:
+	current_state = state.inactive
 	dialogue_box.visible = false
 	portrait_left.texture = null
 	portrait_right.texture = null
 	
-	#start_dialogue([DialogueLine.new(null, "Did you ever hear the tragedy of Darth Plagueis the Wise? I thought not. It's not a story the Jedi would tell you. It's a sith legend. Darth Plagueis was a Dark Lord of the Sith so powerful and so wise, he could use the dark side of the Force to influence the Midichlorians to create... life", "left"), DialogueLine.new(null, "And unfreezing it now!", "right")])
+	start_dialogue([DialogueLine.new(null, "Did you ever hear the tragedy of Darth Plagueis the Wise? I thought not. It's not a story the Jedi would tell you. It's a sith legend. Darth Plagueis was a Dark Lord of the Sith so powerful and so wise, he could use the dark side of the Force to influence the Midichlorians to create... life", "left"), DialogueLine.new(null, "And unfreezing it now!", "right")])
 
 func start_dialogue(lines: Array[DialogueLine]):
 	# Pause the game
@@ -47,6 +51,8 @@ func display_current_line():
 	label.text = current_line.text
 	label.visible_ratio = 0.0
 	
+	current_state = state.reading
+	
 	tween_dialogue()
 	
 func update_portraits(current_line: DialogueLine):
@@ -69,24 +75,35 @@ func split_dialogue_if_needed(lines: Array[DialogueLine]) -> Array[DialogueLine]
 		var words = line.text.split(" ")
 		for word in words:
 			if (new_line + word).length() > max_chars:
+				new_line += "-"
 				split_lines.append(DialogueLine.new(line.speaker, new_line))
-				new_line = word
+				new_line = "-"
+				new_line += word
+				new_line += " "
 			else:
-				if new_line == "":
-					new_line = word
-				else:
-					new_line += " "
-					new_line += word
+				new_line += word
+				new_line += " "
 		split_lines.append(DialogueLine.new(line.speaker, new_line))
 		new_line = ""
 	
 	return split_lines
 	
 func _input(event):
-	if not is_dialogue_active:
-		return
-	if event.is_action_pressed("InteractKey"):
-		advance_dialogue()
+	
+	match current_state:
+		state.inactive:
+			return
+		state.reading:
+			if event.is_action_pressed("InteractKey"):
+				if dialogue_tween:
+					dialogue_tween.kill()
+				label.visible_ratio = 1
+				current_state = state.done_reading
+		state.done_reading:
+			if event.is_action_pressed("InteractKey"):
+				advance_dialogue()
+	
+	
 			
 func advance_dialogue():
 	if current_line_index < dialogue_lines.size()-1:

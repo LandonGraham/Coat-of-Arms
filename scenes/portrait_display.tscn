@@ -10,9 +10,11 @@ default_font_size = 48
 
 [sub_resource type="LabelSettings" id="LabelSettings_dxa21"]
 font_size = 48
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8lvpk"]
 font_size = 48
+font_color = Color(0, 0, 0, 1)
 
 [node name="PortraitDisplay" type="Node2D" unique_id=1511676354]
 
