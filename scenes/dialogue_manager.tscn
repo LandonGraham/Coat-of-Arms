@@ -1,11 +1,16 @@
 [gd_scene format=3 uid="uid://brx2r6llqxrl6"]
 
 [ext_resource type="Script" uid="uid://ctl1opjn2u5sp" path="res://scripts/dialogue_manager.gd" id="1_jbixp"]
+[ext_resource type="Texture2D" uid="uid://c6t8wvhq23nhd" path="res://assets/sprites/UI/TextBox.png" id="2_516v5"]
+[ext_resource type="Texture2D" uid="uid://dbd73t7p6um2x" path="res://assets/sprites/UI/TextDisplayBackground.png" id="3_5hf3l"]
+[ext_resource type="Texture2D" uid="uid://cp5onfiph4i3e" path="res://assets/sprites/UI/TextPortraitUpper.png" id="4_5hf3l"]
+[ext_resource type="Texture2D" uid="uid://omgigosus1gu" path="res://assets/sprites/UI/TextPortraitLower.png" id="5_507jh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_516v5"]
 line_spacing = 15.0
 paragraph_spacing = 1.0
 font_size = 48
+font_color = Color(0, 0, 0, 0.70000005)
 
 [node name="DialogueManager" type="CanvasLayer" unique_id=799841232]
 process_mode = 3
@@ -24,24 +29,20 @@ offset_right = -132.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="ColorRect" type="ColorRect" parent="DialogueBox" unique_id=1496621834]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
+[node name="ColorRect" type="Sprite2D" parent="DialogueBox" unique_id=429102570]
+position = Vector2(835, 84)
+scale = Vector2(0.7188815, 1)
+texture = ExtResource("2_516v5")
 
 [node name="Label" type="Label" parent="DialogueBox" unique_id=131351786]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 66.0
-offset_top = 14.0
-offset_right = -59.0
-offset_bottom = -31.0
+offset_left = 323.0
+offset_top = -77.0
+offset_right = -276.0
+offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_516v5")
@@ -52,21 +53,30 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -81.0
-offset_right = -1067.0
-offset_bottom = -300.0
+offset_left = 229.0
+offset_top = -183.0
+offset_right = -840.0
+offset_bottom = -402.0
 grow_horizontal = 2
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_516v5")
 autowrap_mode = 3
 
+[node name="Background" type="Sprite2D" parent="DialogueBox" unique_id=593498553]
+position = Vector2(97, 78)
+texture = ExtResource("3_5hf3l")
+
+[node name="Upper" type="Sprite2D" parent="DialogueBox" unique_id=164671005]
+position = Vector2(95, 76)
+texture = ExtResource("4_5hf3l")
+
 [node name="PortraitLeft" type="TextureRect" parent="DialogueBox" unique_id=1233271429]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -124.0
+offset_top = -369.0
+offset_right = 316.0
+offset_bottom = 300.0
 
-[node name="PortraitRight" type="TextureRect" parent="DialogueBox" unique_id=1047850679]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Lower" type="Sprite2D" parent="DialogueBox" unique_id=845137715]
+position = Vector2(95, 76)
+texture = ExtResource("5_507jh")

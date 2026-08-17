@@ -4,8 +4,10 @@ extends CanvasLayer
 @onready var dialogue_box: Control = $DialogueBox
 @onready var label: Label = $DialogueBox/Label
 @onready var speaker_name_label: Label = $"DialogueBox/Speaker Name Label"
-@onready var portrait_left: TextureRect = $DialogueBox/PortraitLeft
-@onready var portrait_right: TextureRect = $DialogueBox/PortraitRight
+@onready var portrait: TextureRect = $DialogueBox/PortraitLeft
+@onready var background: Sprite2D = $DialogueBox/Background
+@onready var upper: Sprite2D = $DialogueBox/Upper
+@onready var lower: Sprite2D = $DialogueBox/Lower
 
 var dialogue_read_rate: float = 0.03
 var dialogue_tween: Tween
@@ -23,14 +25,16 @@ var current_state: state
 func _ready() -> void:
 	current_state = state.inactive
 	dialogue_box.visible = false
-	portrait_left.texture = null
-	portrait_right.texture = null
+	background.visible = false
+	upper.visible = false
+	lower.visible = false
+	portrait.texture = null
 	
 	start_dialogue([DialogueLine.new(null, "Did you ever hear the tragedy of Darth Plagueis the Wise? I thought not. It's not a story the Jedi would tell you. It's a sith legend. Darth Plagueis was a Dark Lord of the Sith so powerful and so wise, he could use the dark side of the Force to influence the Midichlorians to create... life", "left"), DialogueLine.new(null, "And unfreezing it now!", "right")])
 
 func start_dialogue(lines: Array[DialogueLine]):
 	# Pause the game
-	get_tree().paused = true
+	get_tree().paused = false
 	dialogue_lines = split_dialogue_if_needed(lines)
 	current_line_index = 0
 	
@@ -46,7 +50,7 @@ func display_current_line():
 	else:
 		speaker_name_label.text = "Narrator"
 	
-	update_portraits(current_line)
+	#update_portraits(current_line)
 	
 	label.text = current_line.text
 	label.visible_ratio = 0.0
@@ -56,19 +60,11 @@ func display_current_line():
 	tween_dialogue()
 	
 func update_portraits(current_line: DialogueLine):
-	portrait_left.texture = null 
-	portrait_right.texture = null
-	
-	if current_line.speaker:
-		var portrait = current_line.speaker.getPortrait() #Speaker might be null, meaning its a narrator
-		if current_line.speaker_position == "left":
-			portrait_left.texture = portrait
-		else:
-			portrait_right.texture = portrait
+	pass
 			
 func split_dialogue_if_needed(lines: Array[DialogueLine]) -> Array[DialogueLine]:
 	var split_lines: Array[DialogueLine] = []
-	var max_chars = 190
+	var max_chars = 150
 	var new_line = ""
 	
 	for line in lines:
@@ -125,3 +121,5 @@ func tween_dialogue():
 	dialogue_tween = create_tween()
 	dialogue_tween.set_trans(Tween.TRANS_LINEAR)
 	dialogue_tween.tween_property(label, "visible_ratio", 1.0, durationMod).set_trans(Tween.TRANS_LINEAR)
+	await dialogue_tween.finished
+	current_state = state.done_reading

@@ -42,6 +42,15 @@ var movement: int
 
 @export var weaponRange: int
 
+#-----Character Portraits----
+
+@export var neutral: Texture2D
+@export var Happy: Texture2D
+@export var Sad: Texture2D
+@export var Surprised: Texture2D
+@export var Angry: Texture2D
+@export var Blush: Texture2D
+
 #-----character stats--------
 
 var fortitude = Stat.new("Fortitude", 1, 50)
