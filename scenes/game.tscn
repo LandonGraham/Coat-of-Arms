@@ -17,14 +17,20 @@
 [ext_resource type="Texture2D" uid="uid://dtpiv6jug3jkb" path="res://assets/sprites/UI/PortraitDisplayPortraits/Zarislov.png" id="11_ssvqc"]
 [ext_resource type="Resource" uid="uid://dj1pau7a028fj" path="res://inventory/Spyros/SpyrosArmorInventory.tres" id="11_wljb1"]
 [ext_resource type="Texture2D" uid="uid://bx6saua834dur" path="res://assets/sprites/UI/PortraitDisplayPortraits/Elsbeth.png" id="12_264po"]
+[ext_resource type="Texture2D" uid="uid://qx80sd7g5awr" path="res://assets/sprites/UI/Expressions/Spyros/Neutral.png" id="12_458eo"]
+[ext_resource type="Texture2D" uid="uid://c4u8tw8uw55sj" path="res://assets/sprites/UI/Expressions/Spyros/Happy.png" id="13_h3rex"]
 [ext_resource type="PackedScene" uid="uid://bet335enqysgv" path="res://scenes/portrait_display.tscn" id="13_ir15t"]
 [ext_resource type="Script" uid="uid://bffwhx1ybwy4h" path="res://scripts/invetoryItem.gd" id="13_v2yb1"]
+[ext_resource type="Texture2D" uid="uid://dyaym8ewcibm4" path="res://assets/sprites/UI/Expressions/Spyros/Sad.png" id="14_fedci"]
 [ext_resource type="Script" uid="uid://bsgmo8td8ykdu" path="res://scripts/inventory.gd" id="14_js0lu"]
 [ext_resource type="PackedScene" uid="uid://c83w0kwf2t6ua" path="res://scenes/combat_manager.tscn" id="14_trtic"]
+[ext_resource type="Texture2D" uid="uid://cdanj47e3ewxj" path="res://assets/sprites/UI/Expressions/Spyros/Surprised.png" id="15_8qswn"]
 [ext_resource type="Script" uid="uid://c3e76v40g1y2m" path="res://scripts/armorSlots.gd" id="15_gxtfn"]
 [ext_resource type="Script" uid="uid://bugv28l6wq4i" path="res://scripts/combat_manager.gd" id="16_ca42v"]
+[ext_resource type="Texture2D" uid="uid://crtmghgun4gj8" path="res://assets/sprites/UI/Expressions/Spyros/Angry.png" id="16_rm0al"]
 [ext_resource type="Resource" uid="uid://pt1s5e6fw17m" path="res://assets/items/Armor/gambeson.tres" id="16_twgab"]
 [ext_resource type="Resource" uid="uid://c8nvgfqvl7bud" path="res://inventory/items/breatplate.tres" id="17_02fa5"]
+[ext_resource type="Texture2D" uid="uid://btkb7uvg72l85" path="res://assets/sprites/UI/Expressions/Spyros/Blush.png" id="17_i4re6"]
 [ext_resource type="Resource" uid="uid://5qvnwcovv2xc" path="res://inventory/items/leather_gloves.tres" id="18_nepv3"]
 [ext_resource type="Resource" uid="uid://3mftn22iekah" path="res://inventory/items/hose.tres" id="19_7025r"]
 [ext_resource type="Script" uid="uid://dbhhiuj3gjmck" path="res://scripts/ArmorInventory.gd" id="20_m4url"]
@@ -34,6 +40,12 @@
 [ext_resource type="Script" uid="uid://p345d64kh2nk" path="res://scripts/techniques.gd" id="24_05nbr"]
 [ext_resource type="Resource" uid="uid://cniprrutd1v5y" path="res://assets/items/Weapons/longbowTest.tres" id="27_js0lu"]
 [ext_resource type="PackedScene" uid="uid://brx2r6llqxrl6" path="res://scenes/dialogue_manager.tscn" id="32_js0lu"]
+[ext_resource type="Texture2D" uid="uid://b18ioipmsbkvi" path="res://assets/sprites/UI/Expressions/Elsbeth/Neutral.png" id="34_pf7vy"]
+[ext_resource type="Texture2D" uid="uid://dd00h11heosdy" path="res://assets/sprites/UI/Expressions/Elsbeth/Happy.png" id="35_o8ni1"]
+[ext_resource type="Texture2D" uid="uid://b57vcpti2gs1f" path="res://assets/sprites/UI/Expressions/Elsbeth/Sad.png" id="36_3hbvx"]
+[ext_resource type="Texture2D" uid="uid://dwj35x7x3qp7i" path="res://assets/sprites/UI/Expressions/Elsbeth/Surprised.png" id="37_q8j3a"]
+[ext_resource type="Texture2D" uid="uid://byjomsujrk6as" path="res://assets/sprites/UI/Expressions/Elsbeth/Angry.png" id="38_ms3bu"]
+[ext_resource type="Texture2D" uid="uid://buxkj31dbwjoe" path="res://assets/sprites/UI/Expressions/Elsbeth/Blush.png" id="39_7ixpq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -700,6 +712,12 @@ inv = ExtResource("10_qouja")
 armorInv = ExtResource("11_wljb1")
 firstName = "Spyros"
 fullName = "Spyros Kokontos"
+Neutral = ExtResource("12_458eo")
+Happy = ExtResource("13_h3rex")
+Sad = ExtResource("14_fedci")
+Surprised = ExtResource("15_8qswn")
+Angry = ExtResource("16_rm0al")
+Blush = ExtResource("17_i4re6")
 
 [node name="Enemy Units" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=2094862470]
 
@@ -727,6 +745,12 @@ inv = SubResource("Resource_rm0al")
 armorInv = SubResource("Resource_i4re6")
 handInv = SubResource("Resource_pf7vy")
 firstName = "Elsbeth"
+Neutral = ExtResource("34_pf7vy")
+Happy = ExtResource("35_o8ni1")
+Sad = ExtResource("36_3hbvx")
+Surprised = ExtResource("37_q8j3a")
+Angry = ExtResource("38_ms3bu")
+Blush = ExtResource("39_7ixpq")
 
 [node name="Cursor" parent="SubViewportContainer/SubViewport" unique_id=1726230699 node_paths=PackedStringArray("selectable_units", "hoverable_units", "camera_2d") instance=ExtResource("3_lbhrr")]
 position = Vector2(152, 72)
@@ -751,7 +775,9 @@ texture = ExtResource("8_gee14")
 
 [node name="Action Display" type="Node2D" parent="UI Manager" unique_id=2049609178]
 
-[node name="DialogueManager" parent="UI Manager" unique_id=799841232 instance=ExtResource("32_js0lu")]
+[node name="DialogueManager" parent="UI Manager" unique_id=799841232 node_paths=PackedStringArray("speaker_one", "speaker_two") instance=ExtResource("32_js0lu")]
+speaker_one = NodePath("../../SubViewportContainer/SubViewport/Units/Spyros")
+speaker_two = NodePath("../../SubViewportContainer/SubViewport/Enemy Units/Elsbeth")
 
 [node name="CombatManager" parent="." unique_id=10987141 instance=ExtResource("14_trtic")]
 script = ExtResource("16_ca42v")

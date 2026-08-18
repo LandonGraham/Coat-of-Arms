@@ -44,7 +44,7 @@ var movement: int
 
 #-----Character Portraits----
 
-@export var neutral: Texture2D
+@export var Neutral: Texture2D
 @export var Happy: Texture2D
 @export var Sad: Texture2D
 @export var Surprised: Texture2D
