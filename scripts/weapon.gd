@@ -5,11 +5,14 @@ class_name Weapon
 enum weaponType{sword, axe, spear, bludgeon, dagger, bow, firearm, artillery, unarmed}
 enum damageType{pierce, slash, strike, magic}
 
+@export var itemName: String
+
 @export var listOfTecnhiques: Array[Techniques]
 
 @export var handsMinimum: int
 @export var handsMaximum: int
 @export var baseDamage: int
+@export var isBeingTwoHanded: bool
 
 @export var pierceMultiplier: float
 @export var slashMultiplier: float
@@ -42,4 +45,6 @@ func getListOfAllTechniques():
 	
 func getListOfUseableTecnhiques(unit: Character):
 	pass
-		
+
+func getName():
+	return name

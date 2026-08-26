@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("2_pjpdr")
+itemName = "Club"
 listOfTecnhiques = Array[ExtResource("1_obm3l")]([ExtResource("2_h4kx8")])
 handsMinimum = 1
 handsMaximum = 2

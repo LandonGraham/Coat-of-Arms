@@ -8,6 +8,7 @@ enum GameState{}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Bode.fortitude.setValue(22)
+	Bode.currentHitPoints = 22
 	Bode.body.setValue(13)
 	Bode.dexterity.setValue(3)
 	Bode.agility.setValue(2)
@@ -20,6 +21,7 @@ func _ready() -> void:
 	Bode.grappling.setValue(10)
 	
 	zarislov.fortitude.setValue(17)
+	zarislov.currentHitPoints = 17
 	zarislov.body.setValue(4)
 	zarislov.dexterity.setValue(9)
 	zarislov.agility.setValue(6)
@@ -30,6 +32,7 @@ func _ready() -> void:
 	zarislov.daggers.setValue(10)
 	
 	elsbeth.fortitude.setValue(11)
+	elsbeth.currentHitPoints = 11
 	elsbeth.body.setValue(3)
 	elsbeth.dexterity.setValue(12)
 	elsbeth.agility.setValue(11)

@@ -9,7 +9,7 @@ extends CanvasLayer
 @onready var upper: Sprite2D = $DialogueBox/Upper
 @onready var lower: Sprite2D = $DialogueBox/Lower
 
-var dialogue_read_rate: float = 0.03
+var dialogue_read_rate: float = 0.025
 var dialogue_tween: Tween
 
 var dialogue_lines: Array[DialogueLine] = []
@@ -31,29 +31,29 @@ func _ready() -> void:
 	portrait.texture = null
 	
 	var test_dialogue: Array[DialogueLine]
-	
+	#
 	test_dialogue = parse_dialogue_string("""[Spyros, Neutral] "Hark, woman! I should prefer not to harm you. Lay down your weapon and go in peace!"
-[Elsbeth, Neutral] "I would just as little enjoy killing a Brother of the cloth."
-[Spyros, Neutral] "A respect for the faith is a rare trait to see in a bandit."
-[Elsbeth, Angry] "I- You mistake me, Brother. I am no bandit, not like these others."
-[Spyros, Angry] "A prisoner then? Or God forbid, you do not mean to say you are their slave?" 
-[Elsbeth, Surprised] "No- no, not that. I only meant that- well, that I'm only here because I haven't another choice."
-[Spyros, Sad] "I should hope that is also the case for your companions, then."
-[Elsbeth, Angry] "I would not extend your sympathy to them. They wanted to kill you, and the other priests you travel with."
-[Spyros, Neutral] "Tell me then, how does a woman find herself in such company?"
-[Elsbeth, Sad] "I'm running from someone who seeks to do me harm. I'm a good shot with a bow, so I found a place here." 
-[Spyros, Happy] "It is the faithful's sworn duty to protect women. Quiver your arrow and retreat behind our lines, and should this 'someone' arrive looking for you, you will be under my protection."
-[Elsbeth, Happy] "Better that I help you defeat them. As I said, I know how to use this bow." 
-[Spyros, Surprised] "It would not be right to ask you to fight, my lady."
-[Elsbeth, Angry] "These are dangerous men, Brother, and you are greatly outnumbered! Now is not the time to worry about my safety compared to your own!"
-[Spyros, Neutral] "...Very well, but- Do try to stay behind the rest of us."
-""")
+#[Elsbeth, Neutral] "I would just as little enjoy killing a Brother of the cloth."
+#[Spyros, Neutral] "A respect for the faith is a rare trait to see in a bandit."
+#[Elsbeth, Angry] "I- You mistake me, Brother. I am no bandit, not like these others."
+#[Spyros, Angry] "A prisoner then? Or God forbid, you do not mean to say you are their slave?" 
+#[Elsbeth, Surprised] "No- no, not that. I only meant that- well, that I'm only here because I haven't another choice."
+#[Spyros, Sad] "I should hope that is also the case for your companions, then."
+#[Elsbeth, Angry] "I would not extend your sympathy to them. They wanted to kill you, and the other priests you travel with."
+#[Spyros, Neutral] "Tell me then, how does a woman find herself in such company?"
+#[Elsbeth, Sad] "I'm running from someone who seeks to do me harm. I'm a good shot with a bow, so I found a place here." 
+#[Spyros, Happy] "It is the faithful's sworn duty to protect women. Quiver your arrow and retreat behind our lines, and should this 'someone' arrive looking for you, you will be under my protection."
+#[Elsbeth, Happy] "Better that I help you defeat them. As I said, I know how to use this bow." 
+#[Spyros, Surprised] "It would not be right to ask you to fight, my lady."
+#[Elsbeth, Angry] "These are dangerous men, Brother, and you are greatly outnumbered! Now is not the time to worry about my safety compared to your own!"
+#[Spyros, Neutral] "...Very well, but- Do try to stay behind the rest of us."
+#""")
 
-	start_dialogue(test_dialogue)
+	#start_dialogue(test_dialogue)
 	
 func start_dialogue(lines: Array[DialogueLine]):
 	# Pause the game
-	get_tree().paused = false
+	get_tree().paused = true
 	dialogue_lines = lines
 	current_line_index = 0
 	

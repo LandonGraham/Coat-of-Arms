@@ -10,6 +10,7 @@ var actionNodes = []
 var testArray  = []
 var selectorPosition: int
 var selectorInitPosition: int
+var selectorOffset = 60
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -118,21 +119,61 @@ func openActionMenu(unit: Character):
 	
 		
 	var positionMod = 0
+	
 	if testArray.is_empty() != true:
 		$"Selector".visible = true
 		#$"Selector".position = Vector2(1500, 150)#Vector2((unit.position.x+16)*6, (unit.position.y-16)*6)
 		for item in testArray:
-			var actionInstance = actionScene.instantiate()
+			var actionInstance = createActionLabel(Vector2(1600, 100+positionMod), item)
 			$"Action Display".add_child(actionInstance)
-			actionInstance.position = Vector2(1650, 100+positionMod)
-			actionInstance.setLabel(item)
 			actionNodes.append(actionInstance)
-			positionMod+= 150
-		selectorInitPosition = (actionNodes[0].position.y)+70
+			positionMod+= 120
+		selectorInitPosition = (actionNodes[0].position.y)+selectorOffset
 		$"Selector".position.y = selectorInitPosition
 		selectorPosition = 0
 		
-	#if unit has weapon, add attack action
+func openWeaponMenu(unit: Character):
+	actionNodes.clear()
+	
+	var positionMod = 0
+	
+	for weapon in unit.handInv.hand_slots:
+		if weapon != null:
+			displayNewAction((createActionLabel(Vector2(1600, 100+positionMod), weapon.getName())))
+			positionMod+= 120
+	if unit.handInv.hand_slots.is_empty() != true:
+			$"Selector".visible = true
+			selectorInitPosition = (actionNodes[0].position.y)+selectorOffset
+			$"Selector".position.y = selectorInitPosition
+			selectorPosition = 0
+			
+func openTechniqueMenu(unit: Character, weaponName: String):
+	var positionMod = 0
+	var listOfTechniques = []
+	for weapon in unit.handInv.getItems():
+		if weapon != null:
+			if weapon.name == weaponName:
+				listOfTechniques = weapon.getListOfAllTechniques()
+		
+		for technique in listOfTechniques:
+			displayNewAction(createActionLabel(Vector2(1200, 100+positionMod), technique.name))
+			positionMod+= 120
+		if listOfTechniques.is_empty() != true:
+			$"Selector".visible = true
+			selectorInitPosition = (actionNodes[0].position.y)+selectorOffset
+			$"Selector".position.y = selectorInitPosition
+			selectorPosition = 0
+			
+func displayNewAction(p_instance: Node2D):
+	$"Action Display".add_child(p_instance)
+	actionNodes.append(p_instance)
+	
+	
+func createActionLabel(p_postion: Vector2, p_text: String):
+	var new_instance = actionScene.instantiate()
+	new_instance.position = p_postion
+	new_instance.setLabel(p_text)
+	return new_instance
 	
 func scrollSelectorActionMenu(toggle: bool):
 	var tween = create_tween()
@@ -143,16 +184,16 @@ func scrollSelectorActionMenu(toggle: bool):
 
 		else:
 			selectorPosition += 1
-			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+70, 0.1)
+			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+selectorOffset, 0.1)
 
 	elif toggle == false: #a false input means the selector is moving down the array, which is visibly up the action menu
 		if selectorPosition-1 < 0:
 			selectorPosition = actionNodes.size()-1
-			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+70, 0.1)
+			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+selectorOffset, 0.1)
 
 		else:
 			selectorPosition -= 1
-			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+70, 0.1)
+			tween.tween_property($"Selector", "position:y", (actionNodes[selectorPosition].position.y)+selectorOffset, 0.1)
 
 func getSelection():
 	var selectedAction = actionNodes[selectorPosition].label.text
@@ -163,7 +204,7 @@ func displayPortrait(unit: Character):
 		$"PortraitDisplay/Portrait".texture = unit.getPortrait()
 		$"PortraitDisplay".visible = true
 		$"PortraitDisplay/AnimationPlayer".play("FadeIn")
-		$"PortraitDisplay/HP Label".text = "HP: " + str(unit.fortitude.getValue())
+		$"PortraitDisplay/HP Label".text = "HP: " + str(unit.currentHitPoints) + "/" + str(unit.fortitude.getValue())
 		$"PortraitDisplay/Name Label".text = unit.getFirstName()
 		pass
 func removePortrait():

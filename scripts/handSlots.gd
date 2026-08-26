@@ -3,6 +3,8 @@ extends Resource
 class_name HandSlots
 
 @export var hand_slots: Array[Weapon]
+@export var equipped_weapon: Weapon
+var two_handing: bool
 
 func equip(item: Weapon) -> bool:
 	if getNumberOfItems() < 2: 
@@ -10,6 +12,17 @@ func equip(item: Weapon) -> bool:
 		return true
 	else:
 		return false
+		
+func twoHand():
+	if getNumberOfItems() < 2:
+		if not hand_slots.is_empty():
+			if hand_slots[0].handsMaximum == 2:
+				equipped_weapon = hand_slots[0]
+				hand_slots[0].isBeingTwoHanded = true
+				two_handing = true
+			else:
+				two_handing = false
+				hand_slots[0].isBeingTwoHanded = false
 
 func getNumberOfItems():
 	var numberOfItems = 0
@@ -17,6 +30,13 @@ func getNumberOfItems():
 		if item != null:
 			numberOfItems += 1
 	return numberOfItems
+	
+func getItems():
+	var listOfItems = []
+	for item in hand_slots:
+		if item != null:
+			listOfItems.append(item)
+	return listOfItems
 
 func getMinAttackRange():
 	var minRange: int

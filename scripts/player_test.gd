@@ -39,6 +39,7 @@ var positionWhenSelected: Vector2
 @export var experiencePoints: int
 var weight: int
 var movement: int
+var currentHitPoints: int
 
 @export var weaponRange: int
 
@@ -313,6 +314,9 @@ func _move(dir: Vector2): #Function that controls cursor movement
 	
 func _physics_process(delta: float) -> void:
 	pass
+
+func _ready() -> void:
+	currentHitPoints = fortitude.getValue()
 
 func updateState(newState: State):
 	match currentState:

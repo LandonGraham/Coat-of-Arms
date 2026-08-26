@@ -4,8 +4,9 @@ var combatantOne: Character
 var combatantTwo: Character
 
 @onready var cursor: Node2D = $"../SubViewportContainer/SubViewport/Cursor"
+@onready var ui_manager: CanvasLayer = $"../UI Manager"
 
-enum state{selectTechniques, inactive}
+enum state{selectWeapons, selectTechniques, inactive}
 
 var currentState: state = state.inactive
 
@@ -15,7 +16,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	match currentState:
+		
+		state.selectWeapons:
+			if Input.is_action_just_pressed("InteractKey"):
+				ui_manager.openTechniqueMenu(combatantOne, ui_manager.getSelection())
 	
 func setCombatants(One: Character, Two: Character):
 	combatantOne = One
@@ -63,6 +68,6 @@ func updateState(newState: state):
 		
 		state.inactive:
 			
-			if newState == state.selectTechniques:
-				chooseTechniques(combatantOne)
+			if newState == state.selectWeapons:
+				ui_manager.openWeaponMenu(combatantOne)
 				currentState = newState

@@ -45,6 +45,7 @@ offset_bottom = 445.0
 texture = ExtResource("2_dxa21")
 
 [node name="HP Label" type="Label" parent="." unique_id=788806617]
+texture_filter = 2
 offset_left = 445.0
 offset_top = 222.0
 offset_right = 524.0
@@ -55,6 +56,7 @@ text = "HP:"
 label_settings = SubResource("LabelSettings_dxa21")
 
 [node name="Name Label" type="Label" parent="." unique_id=234194222]
+texture_filter = 2
 offset_left = 444.0
 offset_top = 107.0
 offset_right = 523.0

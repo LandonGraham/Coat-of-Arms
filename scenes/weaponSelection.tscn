@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://b83t1ia38xmxd"]
+[gd_scene format=3 uid="uid://b4bd6hoi02w3y"]
 
-[ext_resource type="Script" uid="uid://jl6v5ui1i1dc" path="res://scripts/characteraction.gd" id="1_s4prc"]
-[ext_resource type="Texture2D" uid="uid://crm1j6i3vx278" path="res://assets/sprites/UI/ActionBoxTest3.png" id="2_s4prc"]
+[ext_resource type="Script" uid="uid://jl6v5ui1i1dc" path="res://scripts/characteraction.gd" id="1_84hu4"]
+[ext_resource type="Texture2D" uid="uid://crm1j6i3vx278" path="res://assets/sprites/UI/ActionBoxTest3.png" id="2_qh81m"]
 
-[node name="ActionLabel" type="Node2D" unique_id=1797111790]
-script = ExtResource("1_s4prc")
+[node name="WeaponLabel" type="Node2D" unique_id=1797111790]
+script = ExtResource("1_84hu4")
 
 [node name="Icon" type="TextureRect" parent="." unique_id=1356590753]
 offset_right = 40.0
@@ -14,7 +14,7 @@ offset_bottom = 40.0
 offset_right = 200.0
 offset_bottom = 44.0
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_s4prc")
+texture = ExtResource("2_qh81m")
 
 [node name="Label" type="Label" parent="." unique_id=636954678]
 texture_filter = 2

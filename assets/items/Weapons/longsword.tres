@@ -8,6 +8,7 @@
 
 [resource]
 script = ExtResource("4_1u68k")
+itemName = "Longsword"
 listOfTecnhiques = Array[ExtResource("1_lrrkd")]([ExtResource("2_yqsxt"), ExtResource("3_7v2k7")])
 handsMinimum = 1
 handsMaximum = 2

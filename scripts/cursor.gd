@@ -256,7 +256,7 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("InteractKey"):
 				select_target()
 				combat_manager.setCombatants(selected_character, selected_target)
-				combat_manager.updateState(combat_manager.state.selectTechniques)
+				combat_manager.updateState(combat_manager.state.selectWeapons)
 				currentState = state.combat
 				
 			if Input.is_action_just_pressed("inputUpW"):

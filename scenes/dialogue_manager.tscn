@@ -35,6 +35,7 @@ scale = Vector2(0.7188815, 1)
 texture = ExtResource("2_516v5")
 
 [node name="Label" type="Label" parent="DialogueBox" unique_id=131351786]
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,6 +50,7 @@ label_settings = SubResource("LabelSettings_516v5")
 autowrap_mode = 3
 
 [node name="Speaker Name Label" type="Label" parent="DialogueBox" unique_id=328639895]
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,6 +73,7 @@ position = Vector2(95, 76)
 texture = ExtResource("4_5hf3l")
 
 [node name="PortraitLeft" type="TextureRect" parent="DialogueBox" unique_id=1233271429]
+texture_filter = 2
 layout_mode = 0
 offset_left = -124.0
 offset_top = -369.0
