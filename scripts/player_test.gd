@@ -2,7 +2,7 @@ class_name Character
 extends CharacterBody2D
 
 #-------functional variabels--
-
+@export var isEnabled: bool = true
 @export var isPlayable: bool = true
 
 const tile_size: Vector2 = Vector2(16, 16) #const determining how big, in pixels, a tile is (used for moving 16 pixels with the tween function)
@@ -317,6 +317,22 @@ func _physics_process(delta: float) -> void:
 
 func _ready() -> void:
 	currentHitPoints = fortitude.getValue()
+	
+func updateHitPoints(val: int):
+	if (currentHitPoints+val > fortitude.getValue()):
+		currentHitPoints = fortitude.getValue()
+	else:
+		currentHitPoints += val
+		
+func checkIfAboveZeroHealth() -> bool:
+	if currentHitPoints > 0:
+		return true
+	else:
+		return false
+		
+func disableUnit():
+	isEnabled = false
+	visible = false
 
 func updateState(newState: State):
 	match currentState:
