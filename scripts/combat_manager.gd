@@ -13,6 +13,7 @@ enum state { selectWeapons, selectTechniques, inactive }
 var currentState: state = state.inactive
 var selectedWeaponName: String = ""
 var ignoreInputThisFrame: bool = false
+var weaponSelectionSkipped: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,6 +27,9 @@ func _process(delta: float) -> void:
 
 	match currentState:
 		state.selectWeapons:
+			if Input.is_action_just_pressed("backKey"):
+				updateState(state.inactive)
+				return
 			if Input.is_action_just_pressed("inputUpW"):
 				ui_manager.scrollSelectorActionMenu(false)
 			if Input.is_action_just_pressed("InputDownS"):
@@ -35,6 +39,13 @@ func _process(delta: float) -> void:
 				updateState(state.selectTechniques)
 
 		state.selectTechniques:
+			if Input.is_action_just_pressed("backKey"):
+				if weaponSelectionSkipped:
+					# Weapon selection never happened, so go back to target selection.
+					updateState(state.inactive)
+				else:
+					updateState(state.selectWeapons)
+				return
 			if Input.is_action_just_pressed("inputUpW"):
 				ui_manager.scrollSelectorActionMenu(false)
 			if Input.is_action_just_pressed("InputDownS"):
@@ -101,6 +112,14 @@ func chooseTechniques(unit: Character):
 
 		await get_tree().process_frame
 
+# Closes all combat menus, resets the combat state, and hands control back to the cursor's target selection.
+func returnToTargetSelection():
+	ui_manager.closeActions()
+	currentState = state.inactive
+	selectedWeaponName = ""
+	weaponSelectionSkipped = false
+	cursor.returnToTargetSelection()
+
 func updateState(newState: state):
 	match currentState:
 		state.inactive:
@@ -108,20 +127,39 @@ func updateState(newState: state):
 				var weaponsInRange = getWeaponsInRange()
 
 				if weaponsInRange.size() > 1:
+					weaponSelectionSkipped = false
 					ui_manager.openWeaponMenu(combatantOne, weaponsInRange)
 					currentState = state.selectWeapons
 					ignoreInputThisFrame = true
 				elif weaponsInRange.size() == 1:
+					# Only one weapon can attack: show it, but skip selecting it.
+					weaponSelectionSkipped = true
 					ui_manager.openWeaponMenu(combatantOne, weaponsInRange)
 					selectedWeaponName = weaponsInRange[0].getName()
 					ui_manager.openTechniqueMenu(combatantOne, selectedWeaponName, getCombatantDistance(), true)
 					currentState = state.selectTechniques
 					ignoreInputThisFrame = true
 				else:
+					weaponSelectionSkipped = false
 					ui_manager.openWeaponMenu(combatantOne, [])
 					currentState = state.selectWeapons
+					ignoreInputThisFrame = true
 
 		state.selectWeapons:
 			if newState == state.selectTechniques:
 				ui_manager.openTechniqueMenu(combatantOne, selectedWeaponName, getCombatantDistance(), true)
 				currentState = newState
+			elif newState == state.inactive:
+				# Back key pressed while choosing a weapon: return to target selection.
+				returnToTargetSelection()
+
+		state.selectTechniques:
+			if newState == state.selectWeapons:
+				# Back key pressed while choosing a technique: reopen the weapon menu.
+				ui_manager.closeActions()
+				ui_manager.openWeaponMenu(combatantOne, getWeaponsInRange())
+				selectedWeaponName = ""
+				currentState = state.selectWeapons
+			elif newState == state.inactive:
+				# Weapon selection was skipped: return to target selection.
+				returnToTargetSelection()

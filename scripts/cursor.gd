@@ -25,6 +25,10 @@ var currentState: state
 var currentTargetIndex: int = 0
 var targets: Array[Character] = []
 
+# While true, the back key is ignored in selectingTargets until it has been released.
+# This stops the same key press that backed out of combat from also backing out of target selection.
+var blockBackUntilRelease: bool = false
+
 func _move(dir: Vector2):
 
 	global_position += dir * tile_size
@@ -129,6 +133,14 @@ func select_target():
 	if selected_target != null:
 		print(selected_target.name)
 	animated_sprite_2d.play("Selected")
+
+# Called by the combat manager when the player backs out of combat menus.
+# Returns the cursor to target selection on the currently selected target.
+func returnToTargetSelection():
+	selected_target = null
+	blockBackUntilRelease = true
+	findCharacterPortrait(global_position)
+	currentState = state.selectingTargets
 
 func select_character(unit: Character) -> void: #Select character changes the selected character variable to the parameter unit.
 		selected_character = unit
@@ -246,7 +258,11 @@ func _physics_process(delta: float) -> void:
 		
 		state.selectingTargets:
 			
-			if Input.is_action_just_pressed("backKey"):
+			# Ignore the back key until it has been released after returning from combat.
+			if blockBackUntilRelease and not Input.is_action_pressed("backKey"):
+				blockBackUntilRelease = false
+			
+			if Input.is_action_just_pressed("backKey") and not blockBackUntilRelease:
 				movetoPosition(selected_character.global_position, 0.06)
 				ui_manager.openActionMenu(selected_character)
 				findCharacterPortrait(selected_character.global_position)

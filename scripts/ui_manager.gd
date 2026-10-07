@@ -5,17 +5,24 @@ extends CanvasLayer
 @onready var attack_tile_layer: Node2D = $"../SubViewportContainer/SubViewport/AttackTileLayer"
 @onready var enemy_units: Node2D = $"../SubViewportContainer/SubViewport/Enemy Units"
 
+const ACTION_MENU_X = 1600
+const TECHNIQUE_MENU_X = 1200
+
 var inventorySlots = []
-var actionNodes = []
+var actionNodes = []   # Labels the selector currently scrolls through.
+var weaponNodes = []   # Weapon labels that stay on screen while techniques are shown.
 var testArray = []
 var selectorPosition: int
 var selectorInitPosition: int
 var selectorOffset = 60
+var selectorBaseXOffset: float = -60.0   # Selector x relative to the label column it points at.
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$"PortraitDisplay".visible = false
 	$"Selector".visible = false
+	# Remember where the selector sits relative to the action/weapon menu column.
+	selectorBaseXOffset = $"Selector".position.x - ACTION_MENU_X
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -60,6 +67,7 @@ func closeActions():
 	for child in direct_children:
 		child.queue_free()
 	actionNodes.clear()
+	weaponNodes.clear()
 	$"Selector".visible = false
 
 func determineAttackAction(unit: Character) -> bool:
@@ -95,6 +103,7 @@ func getThreatenedUnits(unit: Character) -> Array[Node]:
 
 func openActionMenu(unit: Character):
 	actionNodes.clear()
+	weaponNodes.clear()
 	testArray.clear()
 
 	testArray.append("Wait")
@@ -114,16 +123,19 @@ func openActionMenu(unit: Character):
 	if testArray.is_empty() != true:
 		$"Selector".visible = true
 		for item in testArray:
-			var actionInstance = createActionLabel(Vector2(1600, 100 + positionMod), item)
+			var actionInstance = createActionLabel(Vector2(ACTION_MENU_X, 100 + positionMod), item)
 			$"Action Display".add_child(actionInstance)
 			actionNodes.append(actionInstance)
 			positionMod += 120
 		selectorInitPosition = actionNodes[0].position.y + selectorOffset
-		$"Selector".position.y = selectorInitPosition
+		$"Selector".position = Vector2(ACTION_MENU_X + selectorBaseXOffset, selectorInitPosition)
 		selectorPosition = 0
 
+# Displays the weapon selection menu. If `weapons` is provided, only those
+# weapons are listed; otherwise every equipped weapon is listed.
 func openWeaponMenu(unit: Character, weapons: Array = []):
 	actionNodes.clear()
+	weaponNodes.clear()
 
 	var positionMod = 0
 	var weaponList = weapons
@@ -134,15 +146,22 @@ func openWeaponMenu(unit: Character, weapons: Array = []):
 				weaponList.append(weapon)
 
 	for weapon in weaponList:
-		displayNewAction(createActionLabel(Vector2(1600, 100 + positionMod), weapon.getName()))
+		displayNewAction(createActionLabel(Vector2(ACTION_MENU_X, 100 + positionMod), weapon.getName()))
 		positionMod += 120
+
+	# Track the weapon labels separately so they can stay visible later.
+	weaponNodes = actionNodes.duplicate()
 
 	if actionNodes.is_empty() != true:
 		$"Selector".visible = true
 		selectorInitPosition = actionNodes[0].position.y + selectorOffset
-		$"Selector".position.y = selectorInitPosition
+		$"Selector".position = Vector2(ACTION_MENU_X + selectorBaseXOffset, selectorInitPosition)
 		selectorPosition = 0
 
+# Displays the technique menu for a weapon. If `distance` is >= 0, only
+# techniques usable at that distance (in tiles) are listed.
+# If `preserveExistingLabels` is true, the chosen weapon's label stays on screen
+# (other weapon labels are removed); otherwise all labels are cleared.
 func openTechniqueMenu(unit: Character, weaponName: String, distance: int = -1, preserveExistingLabels: bool = false):
 	var positionMod = 0
 	var listOfTechniques = []
@@ -157,34 +176,31 @@ func openTechniqueMenu(unit: Character, weaponName: String, distance: int = -1, 
 	if listOfTechniques.is_empty():
 		return
 
-	if not preserveExistingLabels:
-		closeActions()
+	if preserveExistingLabels:
+		# Keep only the selected weapon's label on screen.
+		var keptNodes = []
+		for node in weaponNodes:
+			if not is_instance_valid(node):
+				continue
+			if node.label.text == weaponName:
+				keptNodes.append(node)
+			else:
+				node.queue_free()
+		weaponNodes = keptNodes
 	else:
-		var weaponLabelIndex := -1
-		for i in range(actionNodes.size()):
-			if is_instance_valid(actionNodes[i]) and actionNodes[i].label.text == weaponName:
-				weaponLabelIndex = i
-				break
+		closeActions()
 
-		if weaponLabelIndex != -1:
-			for i in range(actionNodes.size() - 1, weaponLabelIndex, -1):
-				if is_instance_valid(actionNodes[i]):
-					actionNodes[i].queue_free()
-				actionNodes.remove_at(i)
-		else:
-			closeActions()
-
-	var selectorXOffset = -60
-	if not actionNodes.is_empty() and is_instance_valid(actionNodes[0]):
-		selectorXOffset = $"Selector".position.x - actionNodes[0].position.x
+	# From here on, the selector scrolls only through technique labels.
+	actionNodes.clear()
 
 	for technique in listOfTechniques:
-		displayNewAction(createActionLabel(Vector2(1200, 100 + positionMod), technique.name))
+		displayNewAction(createActionLabel(Vector2(TECHNIQUE_MENU_X, 100 + positionMod), technique.name))
 		positionMod += 120
 
+	# Move the selector next to the first technique label.
 	$"Selector".visible = true
 	selectorInitPosition = actionNodes[0].position.y + selectorOffset
-	$"Selector".position = Vector2(actionNodes[0].position.x + selectorXOffset, selectorInitPosition)
+	$"Selector".position = Vector2(TECHNIQUE_MENU_X + selectorBaseXOffset, selectorInitPosition)
 	selectorPosition = 0
 
 func displayNewAction(p_instance: Node2D):
@@ -198,15 +214,18 @@ func createActionLabel(p_postion: Vector2, p_text: String):
 	return new_instance
 
 func scrollSelectorActionMenu(toggle: bool):
+	if actionNodes.is_empty():
+		return
+
 	var tween = create_tween()
-	if toggle == true:
+	if toggle == true: # A true input moves down the visible menu.
 		if selectorPosition + 1 > actionNodes.size() - 1:
 			selectorPosition = 0
 			tween.tween_property($"Selector", "position:y", selectorInitPosition, 0.1)
 		else:
 			selectorPosition += 1
 			tween.tween_property($"Selector", "position:y", actionNodes[selectorPosition].position.y + selectorOffset, 0.1)
-	elif toggle == false:
+	elif toggle == false: # A false input moves up the visible menu.
 		if selectorPosition - 1 < 0:
 			selectorPosition = actionNodes.size() - 1
 			tween.tween_property($"Selector", "position:y", actionNodes[selectorPosition].position.y + selectorOffset, 0.1)
