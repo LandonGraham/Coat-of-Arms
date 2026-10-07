@@ -20,7 +20,13 @@ func _process(delta: float) -> void:
 		
 		state.selectWeapons:
 			if Input.is_action_just_pressed("InteractKey"):
-				ui_manager.openTechniqueMenu(combatantOne, ui_manager.getSelection())
+				updateState(state.selectTechniques)
+		
+		state.selectTechniques:
+			if Input.is_action_just_pressed("inputUpW"):
+				ui_manager.scrollSelectorActionMenu(false)
+			if Input.is_action_just_pressed("InputDownS"):
+				ui_manager.scrollSelectorActionMenu(true)
 	
 func setCombatants(One: Character, Two: Character):
 	combatantOne = One
@@ -70,4 +76,10 @@ func updateState(newState: state):
 			
 			if newState == state.selectWeapons:
 				ui_manager.openWeaponMenu(combatantOne)
+				currentState = newState
+		
+		state.selectWeapons:
+			
+			if newState == state.selectTechniques:
+				ui_manager.openTechniqueMenu(combatantOne, ui_manager.getSelection())
 				currentState = newState

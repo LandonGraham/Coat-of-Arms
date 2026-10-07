@@ -151,18 +151,28 @@ func openTechniqueMenu(unit: Character, weaponName: String):
 	var positionMod = 0
 	var listOfTechniques = []
 	for weapon in unit.handInv.getItems():
-		if weapon != null:
-			if weapon.name == weaponName:
-				listOfTechniques = weapon.getListOfAllTechniques()
-		
-		for technique in listOfTechniques:
-			displayNewAction(createActionLabel(Vector2(1200, 100+positionMod), technique.name))
-			positionMod+= 120
-		if listOfTechniques.is_empty() != true:
-			$"Selector".visible = true
-			selectorInitPosition = (actionNodes[0].position.y)+selectorOffset
-			$"Selector".position.y = selectorInitPosition
-			selectorPosition = 0
+		if weapon != null and weapon.name == weaponName:
+			listOfTechniques = weapon.getListOfAllTechniques()
+			break
+	
+	if listOfTechniques.is_empty():
+		return
+	
+	# Remember the selector's horizontal offset from the weapon labels so it
+	# lines up with the technique labels too.
+	var selectorXOffset = $"Selector".position.x - actionNodes[0].position.x
+	
+	# Weapon labels stay on screen, but scrolling now targets technique labels.
+	actionNodes.clear()
+	
+	for technique in listOfTechniques:
+		displayNewAction(createActionLabel(Vector2(1200, 100+positionMod), technique.name))
+		positionMod+= 120
+	
+	$"Selector".visible = true
+	selectorInitPosition = (actionNodes[0].position.y)+selectorOffset
+	$"Selector".position = Vector2(actionNodes[0].position.x + selectorXOffset, selectorInitPosition)
+	selectorPosition = 0
 			
 func displayNewAction(p_instance: Node2D):
 	$"Action Display".add_child(p_instance)
