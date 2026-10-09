@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @onready var label: Label = $Label
 @onready var icon: TextureRect = $Icon

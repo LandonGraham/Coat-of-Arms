@@ -212,43 +212,41 @@ func createActionLabel(p_postion: Vector2, p_text: String):
 	new_instance.position = p_postion
 	new_instance.setLabel(p_text)
 	return new_instance
+	
+	
 
 func scrollSelectorActionMenu(toggle: bool):
-	var currentAction
-	var scalingTween = create_tween()
-	
-		
 	if actionNodes.is_empty():
 		return
-	
 
-
+	var currentAction
 	var tween = create_tween()
-	
-	
+	var scalingTween = create_tween()
+	scalingTween.set_parallel(true)
+
 	if toggle == true: # A true input moves down the visible menu.
 		if selectorPosition + 1 > actionNodes.size() - 1:
 			selectorPosition = 0
 			tween.tween_property($"Selector", "position:y", selectorInitPosition, 0.1)
-			currentAction = actionNodes[selectorInitPosition]
 		else:
 			selectorPosition += 1
 			tween.tween_property($"Selector", "position:y", actionNodes[selectorPosition].position.y + selectorOffset, 0.1)
-			currentAction = actionNodes[selectorPosition]
 	elif toggle == false: # A false input moves up the visible menu.
 		if selectorPosition - 1 < 0:
 			selectorPosition = actionNodes.size() - 1
 			tween.tween_property($"Selector", "position:y", actionNodes[selectorPosition].position.y + selectorOffset, 0.1)
-			currentAction = actionNodes[selectorPosition]
 		else:
 			selectorPosition -= 1
 			tween.tween_property($"Selector", "position:y", actionNodes[selectorPosition].position.y + selectorOffset, 0.1)
-			currentAction = actionNodes[selectorPosition]
-			
-	if currentAction != null:
-		for action in actionNodes:
+
+	currentAction = actionNodes[selectorPosition]
+
+	for action in actionNodes:
+		if is_instance_valid(action):
 			scalingTween.tween_property(action, "scale", Vector2(1, 1), 0.05)
-		scalingTween.tween_property(currentAction, "scale", Vector2(1.1, 1.1), 0.05)
+	if is_instance_valid(currentAction):
+		# Added last, so it overrides the reset tween above for the selected label.
+		scalingTween.tween_property(currentAction, "scale", Vector2(1.05, 1.05), 0.05)
 
 func getSelection():
 	var selectedAction = actionNodes[selectorPosition].label.text

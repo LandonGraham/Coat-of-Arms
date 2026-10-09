@@ -3,24 +3,35 @@
 [ext_resource type="Script" uid="uid://jl6v5ui1i1dc" path="res://scripts/characteraction.gd" id="1_s4prc"]
 [ext_resource type="Texture2D" uid="uid://crm1j6i3vx278" path="res://assets/sprites/UI/ActionBoxTest3.png" id="2_s4prc"]
 
-[node name="ActionLabel" type="Node2D" unique_id=1797111790]
+[node name="ActionLabel" type="Control" unique_id=111091703]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
 script = ExtResource("1_s4prc")
 
 [node name="Icon" type="TextureRect" parent="." unique_id=1356590753]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
 
 [node name="LabelBackground" type="TextureRect" parent="." unique_id=815177930]
-offset_right = 200.0
-offset_bottom = 44.0
+layout_mode = 0
+offset_right = 1165.0
+offset_bottom = 422.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_s4prc")
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="." unique_id=636954678]
 texture_filter = 2
+layout_mode = 0
 offset_left = 77.0
 offset_right = 242.0
 offset_bottom = 109.0
 theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
