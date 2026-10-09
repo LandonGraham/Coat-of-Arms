@@ -214,24 +214,41 @@ func createActionLabel(p_postion: Vector2, p_text: String):
 	return new_instance
 
 func scrollSelectorActionMenu(toggle: bool):
+	var currentAction
+	var scalingTween = create_tween()
+	
+		
 	if actionNodes.is_empty():
 		return
+	
+
 
 	var tween = create_tween()
+	
+	
 	if toggle == true: # A true input moves down the visible menu.
 		if selectorPosition + 1 > actionNodes.size() - 1:
 			selectorPosition = 0
 			tween.tween_property($"Selector", "position:y", selectorInitPosition, 0.1)
+			currentAction = actionNodes[selectorInitPosition]
 		else:
 			selectorPosition += 1
 			tween.tween_property($"Selector", "position:y", actionNodes[selectorPosition].position.y + selectorOffset, 0.1)
+			currentAction = actionNodes[selectorPosition]
 	elif toggle == false: # A false input moves up the visible menu.
 		if selectorPosition - 1 < 0:
 			selectorPosition = actionNodes.size() - 1
 			tween.tween_property($"Selector", "position:y", actionNodes[selectorPosition].position.y + selectorOffset, 0.1)
+			currentAction = actionNodes[selectorPosition]
 		else:
 			selectorPosition -= 1
 			tween.tween_property($"Selector", "position:y", actionNodes[selectorPosition].position.y + selectorOffset, 0.1)
+			currentAction = actionNodes[selectorPosition]
+			
+	if currentAction != null:
+		for action in actionNodes:
+			scalingTween.tween_property(action, "scale", Vector2(1, 1), 0.05)
+		scalingTween.tween_property(currentAction, "scale", Vector2(1.1, 1.1), 0.05)
 
 func getSelection():
 	var selectedAction = actionNodes[selectorPosition].label.text
